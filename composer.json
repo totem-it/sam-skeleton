@@ -1,0 +1,60 @@
+{
+    "name": "totem-it/sam-skeleton",
+    "description": "Basic elements for sam application.",
+    "keywords": [
+        "laravel",
+        "sam",
+        "core",
+        "repository",
+        "skeleton",
+        "upload",
+        "files"
+    ],
+    "authors": [
+        {
+            "name": "Borys Żmuda",
+            "email": "rudashi@gmail.com",
+            "homepage": "https://rudashi.github.io",
+            "role": "Developer"
+        },
+        {
+            "name": "Piotr Rosiak",
+            "email": "piotr.rosiak@totem.com.pl",
+            "role": "Junior Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "pestphp/pest": "^v2.24"
+    },
+    "autoload": {
+        "psr-4": {
+            "Totem\\SamSkeleton\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Totem\\SamSkeleton\\Tests\\": "tests"
+        },
+        "files": [
+            "tests/Pest.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Totem\\SamSkeleton\\SamSkeletonServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/pest"
+    }
+}
