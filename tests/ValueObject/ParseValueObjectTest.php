@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Totem\SamSkeleton\Tests\ValueObject\Concerns;
+namespace Totem\SamSkeleton\Tests\ValueObject;
 
 use Pest\Expectation;
 use Totem\SamSkeleton\Bundles\ValueObject\Concerns\ParseValueObject;
