@@ -33,6 +33,39 @@ Remember to put repository in a composer.json
 
 ## Usage
 
+Functionalities are organized into packages within the src/Bundles folder:
+- Middleware
+    - [LocalizationMiddleware](#LocalizationMiddleware)
+    - [ForceJsonMiddleware](#ForceJsonMiddleware)
+- [ValueObject](#ValueObject)
+
+---
+
+## Middleware
+
+### LocalizationMiddleware
+
+By Default SAM-skeleton uses localization from `.env APP_LOCALE` key. To change response of API, add
+header `Accept-Language`
+
+example:
+
+```php
+Route::middleware(\Totem\SamSkeleton\App\Middleware\LocalizationMiddleware::class)->get('/', [MyController::class, 'index']);
+```
+
+### ForceJsonMiddleware
+
+Middleware that ensures all incoming HTTExceptionsHandler requests to your Laravel application expect a JSON response.
+
+example of use in provider:
+
+```php
+  $this->getRouter()->prependMiddlewareToGroup('api', ForceJsonMiddleware::class);
+```
+
+---
+
 ## ValueObject
 
 Useful in value objects (VO) or data transfer objects (DTOs) where you often need to validate and parse input data before
