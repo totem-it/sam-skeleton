@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace  Totem\SamSkeleton\Tests;
+namespace Totem\SamSkeleton\Tests;
 
 use Illuminate\Http\Request;
 

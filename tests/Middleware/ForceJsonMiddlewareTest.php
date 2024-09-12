@@ -6,7 +6,6 @@ namespace Totem\SamSkeleton\Tests\Middleware;
 
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Http\Request;
-
 use Totem\SamSkeleton\Bundles\Middleware\ForceJsonMiddleware;
 
 use function Totem\SamSkeleton\Tests\createAcceptRequest;
