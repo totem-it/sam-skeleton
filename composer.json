@@ -27,7 +27,7 @@
         "php": "^8.2"
     },
     "require-dev": {
-        "pestphp/pest": "^v2.24"
+        "pestphp/pest": "^v3.0"
     },
     "autoload": {
         "psr-4": {
