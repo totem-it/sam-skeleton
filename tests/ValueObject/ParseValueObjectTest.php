@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\ValueObject;
 
-use Illuminate\Foundation\Testing\TestCase;
-
-uses(TestCase::class);
+use Mockery;
 
 beforeEach(function () {
-    $this->dummy = $this->partialMock(FixtureParseValueObject::class)->shouldAllowMockingProtectedMethods();
+    $this->dummy = Mockery::mock(FixtureParseValueObject::class)->makePartial();
 });
 
 it('can get from trimOrNull method', function ($payload, $value): void {
-    expect($this->dummy->trimOrNull($payload))
+    expect($this->dummy->shouldAllowMockingProtectedMethods()->trimOrNull($payload))
         ->toBe($value);
 })->with([
     'trim string when string' => [' some value   ', 'some value'],
@@ -22,7 +20,7 @@ it('can get from trimOrNull method', function ($payload, $value): void {
 ]);
 
 it('can get from intOrNull method', function ($payload, $value): void {
-    expect($this->dummy->intOrNull($payload))
+    expect($this->dummy->shouldAllowMockingProtectedMethods()->intOrNull($payload))
         ->toBe($value);
 })->with([
     'int when string with number' => ['72', 72],
