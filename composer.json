@@ -29,12 +29,15 @@
         "laravel/framework": "^11.0"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^2.0",
         "laravel/pint": "^1.17",
         "mockery/mockery": "^1.6",
         "orchestra/testbench": "^9.0",
-        "pestphp/pest": "^3.0"
+        "pestphp/pest": "^3.0",
+        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan-mockery": "^1.1",
+        "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {
@@ -63,6 +66,10 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "vendor/bin/pest"
+        "test": "vendor/bin/pest",
+        "pint": "vendor/bin/pint --test -vvv",
+        "profile": "vendor/bin/pest --profile",
+        "coverage": "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage",
+        "analyse": "vendor/bin/phpstan analyse src tests"
     }
 }
