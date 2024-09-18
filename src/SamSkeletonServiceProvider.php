@@ -6,6 +6,4 @@ namespace Totem\SamSkeleton;
 
 use Illuminate\Support\ServiceProvider;
 
-class SamSkeletonServiceProvider extends ServiceProvider
-{
-}
+class SamSkeletonServiceProvider extends ServiceProvider {}

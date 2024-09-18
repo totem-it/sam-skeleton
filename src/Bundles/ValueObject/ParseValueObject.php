@@ -9,7 +9,7 @@ trait ParseValueObject
     /**
      * Parse the property to a trimmed string or returns null.
      */
-    protected static function trimOrNull(string|null $value): string|null
+    protected static function trimOrNull(?string $value): ?string
     {
         if ($value === null) {
             return null;
@@ -23,7 +23,7 @@ trait ParseValueObject
     /**
      * Parse the property to an int or returns null.
      */
-    protected static function intOrNull(string|null $value): int|null
+    protected static function intOrNull(?string $value): ?int
     {
         if ($value === null) {
             return null;
