@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\Middleware;
 
-use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Http\Response;
+use Orchestra\Testbench\TestCase;
 use Totem\SamSkeleton\Bundles\Middleware\LocalizationMiddleware;
 
 use function Totem\SamSkeleton\Tests\createLangRequest;
@@ -21,13 +21,14 @@ beforeEach(function () {
     foreach ($this->lines as $locale => $line) {
         app('translator')->addLines(['test.fake_' => $line], $locale);
     }
-    $this->middleware = new LocalizationMiddleware();
+    $this->middleware = new LocalizationMiddleware;
+    $this->translator = app('translator');
 });
 
 it('can get locale', function () {
     expect([
-        app()->getLocale(),
-        __('test.fake_', [], config('app.locale'))
+        $this->translator->getLocale(),
+        __('test.fake_', [], config('app.locale')),
     ])->sequence(
         fn ($data) => $data
             ->toBe(config('app.locale')),
@@ -37,10 +38,10 @@ it('can get locale', function () {
 });
 
 it('can parse', function ($payload, $value) {
-    $this->middleware->handle(createLangRequest($payload), fn () => new Response());
+    $this->middleware->handle(createLangRequest($payload), fn () => new Response);
 
     expect([
-        app()->getLocale(),
+        $this->translator->getLocale(),
         __('test.fake_', [], $value),
     ])->sequence(
         fn ($data) => $data
@@ -59,10 +60,10 @@ it('can parse', function ($payload, $value) {
 ]);
 
 it('does not set locale', function ($payload) {
-    $this->middleware->handle(createLangRequest($payload), fn () => new Response());
+    $this->middleware->handle(createLangRequest($payload), fn () => new Response);
 
     expect([
-        app()->getLocale(),
+        $this->translator->getLocale(),
         __('test.fake_', [], config('app.locale')),
     ])->sequence(
         fn ($data) => $data

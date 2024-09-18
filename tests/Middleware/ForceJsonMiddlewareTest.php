@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\Middleware;
 
-use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Http\Request;
+use Orchestra\Testbench\TestCase;
 use Totem\SamSkeleton\Bundles\Middleware\ForceJsonMiddleware;
 
 use function Totem\SamSkeleton\Tests\createAcceptRequest;
@@ -13,7 +13,7 @@ use function Totem\SamSkeleton\Tests\createAcceptRequest;
 uses(TestCase::class);
 
 beforeEach(function () {
-    $this->middleware = new ForceJsonMiddleware();
+    $this->middleware = new ForceJsonMiddleware;
 });
 
 it('replaced wildcard Accept header to `application/json`', function () {
