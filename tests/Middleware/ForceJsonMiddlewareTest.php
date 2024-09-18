@@ -16,7 +16,7 @@ beforeEach(function () {
     $this->middleware = new ForceJsonMiddleware;
 });
 
-it('replaced wildcard Accept header to `application/json`', function () {
+it('replaced wildcard Accept header to `application/json`', function (): void {
     $this->middleware->handle(createAcceptRequest(), function (Request $request) {
         expect($request)
             ->headers->get('Accept')->toContain('application/json')
@@ -24,7 +24,7 @@ it('replaced wildcard Accept header to `application/json`', function () {
     });
 });
 
-it('leave Accept header to original value', function ($payload) {
+it('leave Accept header to original value', function ($payload): void {
     $this->middleware->handle(createAcceptRequest($payload), function (Request $request) use ($payload) {
         expect($request)
             ->headers->get('Accept')->toContain($payload)

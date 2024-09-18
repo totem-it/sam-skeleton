@@ -25,7 +25,7 @@ beforeEach(function () {
     $this->translator = app('translator');
 });
 
-it('can get locale', function () {
+it('can get locale', function (): void {
     expect([
         $this->translator->getLocale(),
         __('test.fake_', [], config('app.locale')),
@@ -37,7 +37,7 @@ it('can get locale', function () {
     );
 });
 
-it('can parse', function ($payload, $value) {
+it('can parse', function ($payload, $value): void {
     $this->middleware->handle(createLangRequest($payload), fn () => new Response);
 
     expect([
@@ -59,7 +59,7 @@ it('can parse', function ($payload, $value) {
     'mixed locale values' => ['de-DE, de;q=0.7, fr;q=0.9, en;q=0.8, *;q=0.5', 'de'],
 ]);
 
-it('does not set locale', function ($payload) {
+it('does not set locale', function ($payload): void {
     $this->middleware->handle(createLangRequest($payload), fn () => new Response);
 
     expect([
