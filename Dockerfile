@@ -14,9 +14,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN composer update --prefer-dist --no-interaction
 
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
-RUN install-php-extensions xdebug
+RUN echo "xdebug.mode=develop,debug,coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 EXPOSE 8000
 CMD ["php-fpm"]

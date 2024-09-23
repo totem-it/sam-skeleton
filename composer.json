@@ -68,10 +68,10 @@
     "scripts": {
         "test:arch": "vendor/bin/pest --filter=arch",
         "test:bundles": "vendor/bin/pest --testsuite=bundles",
-        "test:mutate": "XDEBUG_MODE=coverage ./vendor/bin/pest --mutate --parallel --everything",
+        "test:mutate": "vendor/bin/pest --mutate --parallel --everything",
         "pint": "vendor/bin/pint --test -vvv",
         "profile": "vendor/bin/pest --profile",
-        "coverage": "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage",
+        "coverage": "vendor/bin/pest --coverage",
         "analyse": "vendor/bin/phpstan analyse src tests",
         "test": [
             "@test:arch",
