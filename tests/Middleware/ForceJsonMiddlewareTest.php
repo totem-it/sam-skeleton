@@ -12,8 +12,19 @@ use function Totem\SamSkeleton\Tests\createAcceptRequest;
 
 uses(TestCase::class);
 
+covers(ForceJsonMiddleware::class);
+
 beforeEach(function () {
-    $this->middleware = new ForceJsonMiddleware;
+    $this->middleware = new ForceJsonMiddleware();
+});
+
+it('can get request', function (): void {
+    $middleware = $this->middleware->handle(createAcceptRequest(), fn (Request $request) => $request);
+
+    expect($middleware)
+        ->toBeInstanceOf(Request::class)
+        ->headers->get('Accept')->toContain('application/json')
+        ->getAcceptableContentTypes()->toContain('application/json');
 });
 
 it('replaced wildcard Accept header to `application/json`', function (): void {
