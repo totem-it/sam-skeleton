@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /var/www/html
 
-COPY . .
+COPY .. .
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

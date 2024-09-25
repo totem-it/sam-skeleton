@@ -1,4 +1,4 @@
-<p align="center"><img src="logo.svg" width="400" alt=""></p>
+<p align="center"><img src="art/logo.svg" width="400" alt=""></p>
 
 SAM-skeleton
 ================
