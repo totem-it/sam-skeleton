@@ -34,7 +34,7 @@ Remember to put repository in a composer.json
 ## Usage
 
 Functionalities are organized into packages within the src/Bundles folder:
-- Middleware
+- [Middleware](#middleware)
     - [LocalizationMiddleware](#LocalizationMiddleware)
     - [ForceJsonMiddleware](#ForceJsonMiddleware)
 - [ValueObject](#ValueObject)
@@ -51,7 +51,7 @@ header `Accept-Language`
 example:
 
 ```php
-Route::middleware(\Totem\SamSkeleton\App\Middleware\LocalizationMiddleware::class)->get('/', [MyController::class, 'index']);
+Route::middleware(LocalizationMiddleware::class)->get('/', [MyController::class, 'index']);
 ```
 
 ### ForceJsonMiddleware
