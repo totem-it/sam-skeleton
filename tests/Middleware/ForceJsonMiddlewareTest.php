@@ -18,7 +18,7 @@ beforeEach(function () {
     $this->middleware = new ForceJsonMiddleware();
 });
 
-it('can get request', function (): void {
+it('return callback result', function (): void {
     $middleware = $this->middleware->handle(createAcceptRequest(), fn (Request $request) => $request);
 
     expect($middleware)
