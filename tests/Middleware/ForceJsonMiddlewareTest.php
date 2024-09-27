@@ -18,7 +18,7 @@ beforeEach(function () {
     $this->middleware = new ForceJsonMiddleware();
 });
 
-it('return callback result', function (): void {
+it('returns the callback result', function (): void {
     $middleware = $this->middleware->handle(createAcceptRequest(), fn (Request $request) => $request);
 
     expect($middleware)
@@ -35,7 +35,7 @@ it('replaced wildcard Accept header to `application/json`', function (): void {
     });
 });
 
-it('leave Accept header to original value', function ($payload): void {
+it('leaves Accept header to original value', function ($payload): void {
     $this->middleware->handle(createAcceptRequest($payload), function (Request $request) use ($payload) {
         expect($request)
             ->headers->get('Accept')->toContain($payload)

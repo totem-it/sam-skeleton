@@ -38,7 +38,7 @@ it('can get locale', function (): void {
 });
 
 describe('locale behavior', function (): void {
-    it('can parse', function ($payload, $value): void {
+    it('can parse header', function ($payload, $value): void {
         $this->middleware->handle(createLangRequest($payload), fn () => null);
 
         expect([
@@ -109,7 +109,7 @@ it('not changing return callback result', function ($payload): void {
     'monkey string' => [' ; ,;']
 ]);
 
-it('return null when request header is missing', function () {
+it('not set accept-language header when request header is missing', function () {
     $request = createLangRequest();
     $request->headers->replace();
 
