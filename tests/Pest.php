@@ -6,9 +6,9 @@ namespace Totem\SamSkeleton\Tests;
 
 use Illuminate\Http\Request;
 
-function createLangRequest(string $locale = ''): Request
+function createLangRequest(string|null $locale = null): Request
 {
-    return Request::create('/', 'GET', [], [], [], $locale ? ['HTTP_ACCEPT_LANGUAGE' => $locale] : []);
+    return Request::create('/', 'GET', [], [], [], $locale !== null ? ['HTTP_ACCEPT_LANGUAGE' => $locale] : []);
 }
 
 function createAcceptRequest(string $accept = ''): Request
