@@ -12,28 +12,35 @@ class LocalizationMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
+        $headerLanguage = $request->header('Accept-Language');
+
+        if ($headerLanguage === null) {
+            return $next($request);
+        }
+
         $locale = $this->parseHeader($request);
 
-        if (in_array($locale, ['', '*'], true) === false) {
+        if (strlen($locale) === 2) {
             app()->setLocale($locale);
         }
 
         return $next($request);
     }
 
-    private function parseHeader(Request $request)
+    private function parseHeader(Request $request): string
     {
-        $acceptedLanguage = explode(',', $request->header('Accept-Language', ''));
+        $acceptedLanguage = explode(',', $request->header('Accept-Language'));
 
         $extendedPreferredLanguages = [];
 
         foreach ($acceptedLanguage as $language) {
-            $parts = explode(';', $language, 2);
+            [$parts, $s] = explode(';', $language) + [null, null];
 
-            $locale = trim(str_contains($parts[0], '-')
-                ? strstr($parts[0], '-', true)
-                : $parts[0]);
-            $factor = isset($parts[1]) ? Str::after($parts[1], '=') : '1';
+            $locale = trim(str_contains($parts, '-')
+                ? strstr($parts, '-', true)
+                : $parts);
+
+            $factor = $s ? Str::after($s, '=') : '1';
 
             if (isset($extendedPreferredLanguages[$factor]) === false) {
                 $extendedPreferredLanguages[$factor] = $locale;
