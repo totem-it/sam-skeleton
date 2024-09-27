@@ -34,13 +34,13 @@ class LocalizationMiddleware
         $extendedPreferredLanguages = [];
 
         foreach ($acceptedLanguage as $language) {
-            [$parts, $s] = explode(';', $language) + [null, null];
+            [$tag, $quality] = explode(';', $language) + [null, null];
 
-            $locale = trim(str_contains($parts, '-')
-                ? strstr($parts, '-', true)
-                : $parts);
+            $locale = trim(str_contains($tag, '-')
+                ? strstr($tag, '-', true)
+                : $tag);
 
-            $factor = $s ? Str::after($s, '=') : '1';
+            $factor = $quality ? Str::after($quality, '=') : '1';
 
             if (isset($extendedPreferredLanguages[$factor]) === false) {
                 $extendedPreferredLanguages[$factor] = $locale;
