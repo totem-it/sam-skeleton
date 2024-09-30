@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\ValueObject;
 
-use Orchestra\Testbench\TestCase;
-
-uses(TestCase::class);
-
 beforeEach(function () {
     $this->dummy = $this->partialMock(FixtureParseValueObject::class)->shouldAllowMockingProtectedMethods();
 });
