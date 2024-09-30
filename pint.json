@@ -22,6 +22,11 @@
                 "case": "none"
             }
         },
+        "trailing_comma_in_multiline": {
+            "elements" : [
+                "arrays"
+            ]
+        },
         "not_operator_with_successor_space": false
     }
 }
