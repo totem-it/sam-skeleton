@@ -64,7 +64,7 @@ describe('locale behavior', function (): void {
         expect([
             $this->translator->getLocale(),
             __('test.fake_', [], config('app.locale')),
-            app()->getLocale()
+            app()->getLocale(),
         ])->sequence(
             fn ($data) => $data->toBe(config('app.locale')),
             fn ($data) => $data->toBe($this->lines[config('app.locale')]),
@@ -74,7 +74,7 @@ describe('locale behavior', function (): void {
         'header is not sent' => [''],
         'header has asterisk' => ['*'],
         'incompatible locale' => [fake()->sentence(1)],
-        'monkey string' => [' ; ,;']
+        'monkey string' => [' ; ,;'],
     ]);
 
     it('does not set locale when header is missing', function () {
@@ -86,7 +86,7 @@ describe('locale behavior', function (): void {
         expect([
             $this->translator->getLocale(),
             __('test.fake_', [], config('app.locale')),
-            app()->getLocale()
+            app()->getLocale(),
         ])->sequence(
             fn ($data) => $data->toBe(config('app.locale')),
             fn ($data) => $data->toBe($this->lines[config('app.locale')]),
@@ -106,7 +106,7 @@ it('not changing return callback result', function ($payload): void {
     'empty' => [''],
     'empty space' => ['                            '],
     'asterisk' => ['*'],
-    'monkey string' => [' ; ,;']
+    'monkey string' => [' ; ,;'],
 ]);
 
 it('not set accept-language header when request header is missing', function () {
