@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Totem\SamSkeleton\Tests\Middleware;
 
 use Illuminate\Http\Request;
+use Orchestra\Testbench\TestCase;
 use Totem\SamSkeleton\Bundles\Middleware\LocalizationMiddleware;
 
 use function Totem\SamSkeleton\Tests\createLangRequest;
+
+uses(TestCase::class);
 
 covers(LocalizationMiddleware::class);
 
