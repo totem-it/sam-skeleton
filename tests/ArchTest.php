@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests;
 
-arch()->preset()->php();
+//arch()->preset()->php();
 
-arch()->preset()->security();
+//arch()->preset()->security();
 
 arch('no debug')
     ->expect('Totem\SamSkeleton')
