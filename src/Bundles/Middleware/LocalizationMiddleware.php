@@ -12,13 +12,13 @@ class LocalizationMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $headerLanguage = $request->header('Accept-Language');
+        $headerLanguage = trim($request->header('Accept-Language', ''));
 
-        if ($headerLanguage === null) {
+        if (strlen($headerLanguage) < 2) {
             return $next($request);
         }
 
-        $locale = $this->parseHeader($request);
+        $locale = $this->parseHeader($headerLanguage);
 
         if (strlen($locale) === 2) {
             app()->setLocale($locale);
@@ -27,27 +27,34 @@ class LocalizationMiddleware
         return $next($request);
     }
 
-    private function parseHeader(Request $request): string
+    protected function parseHeader(string $header): string
     {
-        $acceptedLanguage = explode(',', $request->header('Accept-Language'));
+        $acceptedLanguage = explode(',', $header);
 
         $extendedPreferredLanguages = [];
 
         foreach ($acceptedLanguage as $language) {
             [$tag, $quality] = explode(';', $language) + [null, null];
 
-            $locale = trim(str_contains($tag, '-')
-                ? strstr($tag, '-', true)
-                : $tag);
-
-            $factor = $quality ? Str::after($quality, '=') : '1';
+            $factor = $this->getFactor($quality);
 
             if (isset($extendedPreferredLanguages[$factor]) === false) {
-                $extendedPreferredLanguages[$factor] = $locale;
+                $extendedPreferredLanguages[$factor] = $this->getLocale($tag);
             }
         }
+
         krsort($extendedPreferredLanguages);
 
         return reset($extendedPreferredLanguages);
+    }
+
+    private function getFactor(string|null $quality): string
+    {
+        return $quality ? Str::after($quality, '=') : '1';
+    }
+
+    private function getLocale(string $tag): string
+    {
+        return trim(str_contains($tag, '-') ? strstr($tag, '-', true) : $tag);
     }
 }

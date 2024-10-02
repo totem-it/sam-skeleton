@@ -105,6 +105,7 @@ it('not changing return callback result', function ($payload): void {
     'country code' => ['pl'],
     'empty' => [''],
     'empty space' => ['                            '],
+    'whitespace' => ['             a               '],
     'asterisk' => ['*'],
     'monkey string' => [' ; ,;'],
 ]);
@@ -117,4 +118,51 @@ it('not set accept-language header when request header is missing', function () 
 
     expect($middleware)->toBeInstanceOf(Request::class)
         ->headers->get('accept-language')->toBeNull();
+});
+
+describe('middleware', function (): void {
+    it('is invoked with the correct accept-language header', function ($payload) {
+        /** @var LocalizationMiddleware $mock */
+        $mock = $this->partialMock(LocalizationMiddleware::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldReceive('parseHeader')
+            ->once()
+            ->andReturn('')
+            ->getMock();
+
+        $mock->handle(createLangRequest($payload), fn () => null);
+    })->with([
+        'country code' => ['pl'],
+        'whitespace in middle & end' => ['j             a               '],
+        'monkey string' => [' ; ,;'],
+        'mixed locale values' => ['de-DE, de;q=0.7, fr;q=0.9, en;q=0.8, *;q=0.5'],
+    ]);
+
+    it('is ignored if the accept-language header is invalid', function ($payload) {
+        /** @var LocalizationMiddleware $mock */
+        $mock = $this->partialMock(LocalizationMiddleware::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldNotReceive('parseHeader')
+            ->getMock();
+
+        $mock->handle(createLangRequest($payload), fn () => null);
+    })->with([
+        'empty string' => [''],
+        'empty space' => ['                            '],
+        'whitespace in start & end' => ['             a               '],
+        'asterisk' => ['*'],
+    ]);
+
+    it('is ignored if the accept-language header is missing', function () {
+        /** @var LocalizationMiddleware $mock */
+        $mock = $this->partialMock(LocalizationMiddleware::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldNotReceive('parseHeader')
+            ->getMock();
+
+        $request = createLangRequest();
+        $request->headers->replace();
+
+        $mock->handle($request, fn () => null);
+    });
 });
