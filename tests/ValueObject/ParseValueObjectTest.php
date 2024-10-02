@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Totem\SamSkeleton\Tests\ValueObject;
 
 use Orchestra\Testbench\TestCase;
+use Totem\SamSkeleton\Bundles\ValueObject\ParseValueObject;
 
 uses(TestCase::class);
+
+covers(ParseValueObject::class);
 
 beforeEach(function () {
     $this->dummy = $this->partialMock(FixtureParseValueObject::class)->shouldAllowMockingProtectedMethods();
