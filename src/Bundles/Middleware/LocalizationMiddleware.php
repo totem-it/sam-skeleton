@@ -12,9 +12,9 @@ class LocalizationMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $headerLanguage = $request->header('Accept-Language', '');
+        $headerLanguage = trim($request->header('Accept-Language', ''));
 
-        if (strLen(trim($headerLanguage)) < 2) {
+        if (strlen($headerLanguage) < 2) {
             return $next($request);
         }
 
@@ -36,18 +36,25 @@ class LocalizationMiddleware
         foreach ($acceptedLanguage as $language) {
             [$tag, $quality] = explode(';', $language) + [null, null];
 
-            $locale = trim(str_contains($tag, '-')
-                ? strstr($tag, '-', true)
-                : $tag);
-
-            $factor = $quality ? Str::after($quality, '=') : '1';
+            $factor = $this->getFactor($quality);
 
             if (isset($extendedPreferredLanguages[$factor]) === false) {
-                $extendedPreferredLanguages[$factor] = $locale;
+                $extendedPreferredLanguages[$factor] = $this->getLocale($tag);
             }
         }
+
         krsort($extendedPreferredLanguages);
 
         return reset($extendedPreferredLanguages);
+    }
+
+    private function getFactor(string|null $quality): string
+    {
+        return $quality ? Str::after($quality, '=') : '1';
+    }
+
+    private function getLocale(string $tag): string
+    {
+        return trim(str_contains($tag, '-') ? strstr($tag, '-', true) : $tag);
     }
 }
