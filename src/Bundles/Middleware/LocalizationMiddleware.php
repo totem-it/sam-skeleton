@@ -12,13 +12,13 @@ class LocalizationMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $headerLanguage = $request->header('Accept-Language');
+        $headerLanguage = $request->header('Accept-Language', '');
 
-        if ($headerLanguage === null) {
+        if (strLen(trim($headerLanguage)) < 2) {
             return $next($request);
         }
 
-        $locale = $this->parseHeader($request);
+        $locale = $this->parseHeader($headerLanguage);
 
         if (strlen($locale) === 2) {
             app()->setLocale($locale);
@@ -27,9 +27,9 @@ class LocalizationMiddleware
         return $next($request);
     }
 
-    private function parseHeader(Request $request): string
+    protected function parseHeader(string $header): string
     {
-        $acceptedLanguage = explode(',', $request->header('Accept-Language'));
+        $acceptedLanguage = explode(',', $header);
 
         $extendedPreferredLanguages = [];
 
