@@ -1,8 +1,5 @@
 {
     "preset": "psr12",
-    "exclude" : [
-        "vendor/"
-    ],
     "rules": {
         "ordered_imports": {
             "sort_algorithm": "alpha",
@@ -27,6 +24,11 @@
                 "arrays"
             ]
         },
-        "not_operator_with_successor_space": false
+        "not_operator_with_successor_space": false,
+        "no_extra_blank_lines": {
+            "tokens" : [
+                "extra"
+            ]
+        }
     }
 }
