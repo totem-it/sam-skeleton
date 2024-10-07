@@ -12,7 +12,7 @@ class ApiCollection extends ResourceCollection
 
     public function __construct($resource, ?string $collects = null)
     {
-        if (! $this->collects && $collects !== null) {
+        if ($collects !== null) {
             $this->collects = $collects;
         }
 
