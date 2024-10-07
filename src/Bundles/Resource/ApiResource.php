@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiResource extends JsonResource
 {
+    use AdditionalResourceData;
+
     public static function noContent(): self
     {
         return new self(true);
@@ -32,13 +34,6 @@ class ApiResource extends JsonResource
         }
 
         return parent::toArray($request);
-    }
-
-    public function with($request): array
-    {
-        return [
-            'apiVersion' => config('app.api'),
-        ];
     }
 
     public function withResponse($request, $response): void

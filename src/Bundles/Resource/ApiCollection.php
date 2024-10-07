@@ -8,6 +8,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ApiCollection extends ResourceCollection
 {
+    use AdditionalResourceData;
+
     public function __construct($resource, ?string $collects = null)
     {
         if (! $this->collects && $collects !== null) {
@@ -15,12 +17,5 @@ class ApiCollection extends ResourceCollection
         }
 
         parent::__construct($resource);
-    }
-
-    public function with($request): array
-    {
-        return [
-            'apiVersion' => config('app.api'),
-        ];
     }
 }
