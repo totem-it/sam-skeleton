@@ -13,4 +13,11 @@ class SamSkeletonServiceProvider extends ServiceProvider
     {
         $this->app['router']->prependMiddlewareToGroup('api', ForceJsonMiddleware::class);
     }
+
+    public function register(): void
+    {
+        $this->app['config']->set([
+            'app.api' => env('APP_API', '1.0.0'),
+        ]);
+    }
 }
