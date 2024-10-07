@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\Resource;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\MissingValue;
-use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Totem\SamSkeleton\Bundles\Resource\ApiCollection;
 use Totem\SamSkeleton\Bundles\Resource\ApiResource;
+use Totem\SamSkeleton\Tests\TestCase;
 
 uses(TestCase::class);
 
@@ -19,14 +18,15 @@ covers(ApiResource::class);
 
 beforeEach(function () {
     $this->request = Request::create('/');
+    $this->resource = [fake()->word() => fake()->word()];
 });
 
 it('can get array', function (): void {
-    $resource = new ApiResource(['foo' => 'bar']);
+    $resource = new ApiResource($this->resource);
 
     $array = $resource->toArray($this->request);
 
-    expect($array)->toBe(['foo' => 'bar']);
+    expect($array)->toBe($this->resource);
 });
 
 it('can get empty array when resource is boolean true', function (): void {
@@ -35,15 +35,6 @@ it('can get empty array when resource is boolean true', function (): void {
     $array = $resource->toArray($this->request);
 
     expect($array)->toBe([]);
-});
-
-it('can includes apiVersion in the response', function (): void {
-    config(['app.api' => '1.0']);
-    $resource = new ApiResource(['foo' => 'bar']);
-
-    $with = $resource->with($this->request);
-
-    expect($with)->toBe(['apiVersion' => '1.0']);
 });
 
 it('returns an instance of ApiResource with true value', function (): void {
@@ -76,33 +67,20 @@ it('can get no content status code when resource is boolean', function ($boolean
 ]);
 
 it('can create Collection via collection() method', function (): void {
-    $resource = [fake()->word(), fake()->word()];
+    $resource = fake()->words();
 
     $apiCollection = ApiResource::collection($resource);
 
     expect($apiCollection)
         ->toBeInstanceOf(ApiCollection::class)
-        ->toHaveCount(2)
-        ->sequence(
-            fn ($item) => $item->resource->toBe($resource[0]),
-            fn ($item) => $item->resource->toBe($resource[1]),
-        )
-        ->each()->toBeInstanceOf(ApiResource::class);
+        ->toHaveCount(3)
+        ->each(function ($item, $index) use ($resource) {
+            $item->toBeInstanceOf(ApiResource::class)->resource->toBe($resource[$index]);
+        });
 });
 
 test('resources may have optional attributes', function (): void {
-    class FixtureModel extends Model
-    {
-    }
-
-    FixtureModel::unguard();
-
-    $post = new FixtureModel([
-        'id' => 5,
-        'is_published' => true,
-    ]);
-
-    $resource = new FixtureApiResource($post);
+    $resource = new FixtureApiResource(new FixtureModel());
 
     expect($resource->toArray($this->request))
         ->toHaveKeys(['id', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'])
@@ -117,4 +95,13 @@ test('resources may have optional attributes', function (): void {
             fn ($item) => $item->toBeInstanceOf(MissingValue::class),
             fn ($item) => $item->toBe('default'),
         );
+});
+
+it('get response with correct data', function (): void {
+    $resource = new ApiResource($this->resource);
+    $response = $resource->toResponse($this->request);
+
+    expect($response->getData())
+        ->data->toMatchArray($this->resource)
+        ->apiVersion->toBe(config('app.api'));
 });
