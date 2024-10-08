@@ -31,13 +31,13 @@ it('sets the collects property if provided', function (): void {
         );
 });
 
-it('return null when collects is missing', function (): void {
+test('collect property returns null when not provided', function (): void {
     $collection = new ApiCollection($this->resource);
 
     expect($collection->collects)->toBeNull();
 });
 
-it('return null when collects is null', function (): void {
+test('collect property returns null when collects is null', function (): void {
     $collection = new ApiCollection($this->resource, null);
 
     expect($collection)->collects->toBeNull();

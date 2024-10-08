@@ -21,7 +21,7 @@ beforeEach(function () {
     $this->resource = [fake()->word() => fake()->word()];
 });
 
-it('can get array', function (): void {
+it('returns the resource as an array', function (): void {
     $resource = new ApiResource($this->resource);
 
     $array = $resource->toArray($this->request);
@@ -55,7 +55,7 @@ it('can get HTTP no content status', function (): void {
         ->getStatusCode()->toBe(Response::HTTP_NO_CONTENT);
 });
 
-it('can create Collection', function (): void {
+it('creates an ApiCollection with the correct resources', function (): void {
     $resource = fake()->words();
 
     $apiCollection = ApiResource::collection($resource);

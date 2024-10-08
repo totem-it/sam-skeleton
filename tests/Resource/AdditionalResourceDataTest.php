@@ -18,7 +18,7 @@ beforeEach(function () {
     $this->resource = new ApiResource([]);
 });
 
-it('adds the api version to the response', function (): void {
+it('return the api version', function (): void {
     $response = $this->resource->with($this->request);
 
     expect($response)->toBe(['apiVersion' => config('app.api')]);
