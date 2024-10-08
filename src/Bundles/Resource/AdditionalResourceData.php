@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Bundles\Resource;
 
-/**
- * @property \Totem\SamSkeleton\Bundles\Resource\ApiResource $resource
- * @property \Totem\SamSkeleton\Bundles\Resource\ApiCollection $collection
- */
 trait AdditionalResourceData
 {
+    /**
+     * @param $request
+     * @return array{apiVersion: string}
+     */
     public function with($request): array
     {
         return [
