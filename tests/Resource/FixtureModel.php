@@ -10,10 +10,12 @@ class FixtureModel extends Model
 {
     public function __construct(array $attributes = [])
     {
-        $this->setAttribute('id', 5);
-        $this->setAttribute('is_published', true);
+        $this->attributes = array_merge([
+            'id' => 5,
+            'is_published' => true,
+        ], $attributes);
 
-        parent::__construct($attributes);
         static::unguard();
+        parent::__construct($attributes);
     }
 }
