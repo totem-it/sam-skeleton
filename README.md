@@ -82,9 +82,7 @@ to the API response
 extends JsonResource
 
 - `whenHasAttribute()` Checks if the resource has the specified attribute.
-- `noContent()` - Creates an `ApiResource` instance with `true` as the resource value, which allows the response to be
-returned with an HTTP 204 (No Content) status code. This status indicates that the operation was successful but does
-not return any content.
+- `noContent()` - Allows the response to be returned with an HTTP 204 (No Content) status code.
 ---
 
 
