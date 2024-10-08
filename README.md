@@ -81,20 +81,17 @@ to the API response
 
 extends JsonResource
 
-- `toArray()` method transforms the resource into an array
-- `with()` method includes information about the apiVersion
-- `newCollection()` Creates a new ApiCollection instance for a given resource collection.
 - `whenHasAttribute()` Checks if the resource has the specified attribute.
-- `noContent()` - creates an ApiResource instance with `true` as the resource value, which allows the response to be returned with an HTTP 204 No Content code.
-
+- `noContent()` - Creates an `ApiResource` instance with `true` as the resource value, which allows the response to be
+returned with an HTTP 204 (No Content) status code. This status indicates that the operation was successful but does
+not return any content.
 ---
 
 
 ## ValueObject
 
 Useful in value objects (VO) or data transfer objects (DTOs) where you often need to validate and parse input data
-before
-using it. It provides a simple and reusable way to handle common parsing scenarios.
+before using it. It provides a simple and reusable way to handle common parsing scenarios.
 
 Parse the property to a trimmed string or returns null.
 
