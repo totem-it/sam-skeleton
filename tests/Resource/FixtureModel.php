@@ -8,15 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class FixtureModel extends Model
 {
-    protected $attributes = [
-        'id' => 5,
-        'is_published' => true,
-    ];
-
-    protected static function boot(): void
+    public function __construct(array $attributes = [])
     {
-        parent::boot();
+        $this->setAttribute('id', 5);
+        $this->setAttribute('is_published', true);
 
+        parent::__construct($attributes);
         static::unguard();
     }
 }
