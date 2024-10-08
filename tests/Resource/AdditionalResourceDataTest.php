@@ -15,16 +15,16 @@ covers(AdditionalResourceData::class);
 
 beforeEach(function () {
     $this->request = Request::create('/');
-    $this->resource = new ApiResource([fake()->word() => fake()->word()]);
+    $this->resource = new ApiResource([]);
 });
 
 it('adds the api version to the response', function (): void {
-    $with = $this->resource->with($this->request);
+    $response = $this->resource->with($this->request);
 
-    expect($with)->toBe(['apiVersion' => config('app.api')]);
+    expect($response)->toBe(['apiVersion' => config('app.api')]);
 });
 
-it('can includes apiVersion in the response', function () {
+it('includes apiVersion in the response', function () {
     $response = $this->resource->toResponse($this->request);
 
     expect($response->getData()->apiVersion)->toBe(config('app.api'));
