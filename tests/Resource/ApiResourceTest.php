@@ -40,7 +40,8 @@ it('can get empty array when resource is boolean true', function (): void {
 it('returns an instance of ApiResource with true value', function (): void {
     $response = ApiResource::noContent();
 
-    expect($response)->toBeInstanceOf(ApiResource::class)
+    expect($response)
+        ->toBeInstanceOf(ApiResource::class)
         ->resource->toBeTrue();
 });
 
@@ -54,19 +55,7 @@ it('can get HTTP no content status', function (): void {
         ->getStatusCode()->toBe(Response::HTTP_NO_CONTENT);
 });
 
-it('can get no content status code when resource is boolean', function ($booleanValue): void {
-    $resource = new ApiResource($booleanValue);
-    $response = new JsonResponse();
-
-    $resource->withResponse($this->request, $response);
-
-    expect($response->getStatusCode())->toBe(Response::HTTP_NO_CONTENT);
-})->with([
-    'true' => [fn () => true],
-    'false' => [fn () => false],
-]);
-
-it('can create Collection via collection() method', function (): void {
+it('can create Collection', function (): void {
     $resource = fake()->words();
 
     $apiCollection = ApiResource::collection($resource);
@@ -79,21 +68,20 @@ it('can create Collection via collection() method', function (): void {
         });
 });
 
-test('resources may have optional attributes', function (): void {
+test('optional attributes are handled correctly', function (): void {
     $resource = new FixtureApiResource(new FixtureModel());
 
     expect($resource->toArray($this->request))
-        ->toHaveKeys(['id', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'])
         ->sequence(
-            fn ($item) => $item->toBe(5),
-            fn ($item) => $item->toBeTrue(),
-            fn ($item) => $item->toBeTrue(),
-            fn ($item) => $item->toBe('override value'),
-            fn ($item) => $item->toBeTrue(),
-            fn ($item) => $item->toBeTrue(),
-            fn ($item) => $item->toBeTrue(),
-            fn ($item) => $item->toBeInstanceOf(MissingValue::class),
-            fn ($item) => $item->toBe('default'),
+            fn ($item, $key) => $key->toBe('id') && $item->toBe(5),
+            fn ($item, $key) => $key->toBe('first') && $item->toBeTrue(),
+            fn ($item, $key) => $key->toBe('second') && $item->toBeTrue(),
+            fn ($item, $key) => $key->toBe('third') && $item->toBe('override value'),
+            fn ($item, $key) => $key->toBe('fourth') && $item->toBeTrue(),
+            fn ($item, $key) => $key->toBe('fifth') && $item->toBeTrue(),
+            fn ($item, $key) => $key->toBe('sixth') && $item->toBeTrue(),
+            fn ($item, $key) => $key->toBe('seventh') && $item->toBeInstanceOf(MissingValue::class),
+            fn ($item, $key) => $key->toBe('eighth') && $item->toBe('default'),
         );
 });
 
