@@ -31,19 +31,19 @@ it('sets the collects property if provided', function (): void {
         );
 });
 
-it('can get null when collects is missing', function (): void {
+it('return null when collects is missing', function (): void {
     $collection = new ApiCollection($this->resource);
 
     expect($collection->collects)->toBeNull();
 });
 
-it('can get null when collects is null', function (): void {
+it('return null when collects is null', function (): void {
     $collection = new ApiCollection($this->resource, null);
 
     expect($collection)->collects->toBeNull();
 });
 
-it('can get null when resource is empty array & collects is defined', function (): void {
+it('return null when resource is empty array & collects is defined', function (): void {
     $collection = new ApiCollection([], ApiResource::class);
 
     expect($collection)
@@ -51,7 +51,7 @@ it('can get null when resource is empty array & collects is defined', function (
         ->collection->toBeEmpty();
 });
 
-it('get response with correct data', function (): void {
+it('return response with correct data', function (): void {
     $collection = new ApiCollection($this->resource, ApiResource::class);
 
     $response = $collection->toResponse($this->request);
