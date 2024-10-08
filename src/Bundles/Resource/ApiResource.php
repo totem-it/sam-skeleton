@@ -25,7 +25,7 @@ class ApiResource extends JsonResource
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<array-key, mixed>
      */
     public function toArray(Request $request): array
     {
