@@ -30,7 +30,7 @@ it('includes apiVersion in the response', function () {
     expect($response->getData()->apiVersion)->toBe(config('app.api'));
 });
 
-it('use api version from app config', function () {
+it('use api version from app', function () {
     expect(config('app.api'))->toBe(config('app.api'));
 
     config(['app.api' => '1.2']);

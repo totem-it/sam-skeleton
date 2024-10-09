@@ -29,7 +29,7 @@ it('returns the resource as an array', function (): void {
     expect($array)->toBe($this->resource);
 });
 
-it('returns empty array when resource is boolean true', function (): void {
+it('returns an empty array when resource is boolean true', function (): void {
     $resource = new ApiResource(true);
 
     $array = $resource->toArray($this->request);
@@ -55,7 +55,7 @@ it('returns HTTP no content status', function (): void {
         ->getStatusCode()->toBe(Response::HTTP_NO_CONTENT);
 });
 
-it('returns default collection class', function (): void {
+it('returns ApiCollection class', function (): void {
     $resource = fake()->words();
 
     $apiCollection = ApiResource::collection($resource);
@@ -83,7 +83,7 @@ test('optional attributes are handled correctly', function (): void {
         );
 });
 
-it('get response with correct data', function (): void {
+it('returns response with correct data', function (): void {
     $resource = new ApiResource($this->resource);
     $response = $resource->toResponse($this->request);
 

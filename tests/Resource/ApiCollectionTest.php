@@ -37,7 +37,7 @@ test('collect property returns null when collects is null', function (): void {
     expect($collection->collects)->toBeNull();
 });
 
-it('return empty collection when resource is empty array', function (): void {
+it('returns an empty collection when resource is empty array', function (): void {
     $collection = new ApiCollection([], ApiResource::class);
 
     expect($collection)
@@ -45,7 +45,7 @@ it('return empty collection when resource is empty array', function (): void {
         ->collection->toBeEmpty();
 });
 
-it('return response with correct data', function (): void {
+it('returns response with correct data', function (): void {
     $collection = new ApiCollection($this->resource, ApiResource::class);
 
     $response = $collection->toResponse($this->request);
