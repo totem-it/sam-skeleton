@@ -11,7 +11,7 @@ use Totem\SamSkeleton\Tests\TestCase;
 
 uses(TestCase::class);
 
-covers(AdditionalResourceData::class);
+mutates(AdditionalResourceData::class);
 
 beforeEach(function () {
     $this->request = Request::create('/');
