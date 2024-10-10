@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ForceJsonMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if (str_contains($request->headers->get('Accept', '*'), '*')) {
             $request->headers->set('Accept', 'application/json');
