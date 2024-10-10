@@ -59,13 +59,16 @@ Route::middleware(LocalizationMiddleware::class)->get('/', [MyController::class,
 ```
 
 ### ForceJsonMiddleware
+This middleware changes the `accept: *` header to `accept: application/json`.
 
-Middleware that ensures all incoming HTTExceptionsHandler requests to your Laravel application expect a JSON response.
-
-example of use in provider:
+example:
 
 ```php
-  $this->getRouter()->prependMiddlewareToGroup('api', ForceJsonMiddleware::class);
+$this->app['router']->prependMiddlewareToGroup('api', ForceJsonMiddleware::class);
+// inside service provider
+
+Route::middleware(ForceJsonMiddleware::class)->get('/', [MyController::class, 'index']);
+// inside routes
 ```
 
 ---
