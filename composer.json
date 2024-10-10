@@ -72,11 +72,15 @@
     "pint": "vendor/bin/pint --test -vvv",
     "profile": "vendor/bin/pest --profile",
     "coverage": "vendor/bin/pest --coverage",
-    "analyse": "vendor/bin/phpstan analyse src tests",
+    "analyse": "vendor/bin/phpstan analyse",
     "test": [
       "@test:arch",
       "@test:bundles",
       "@test:mutate"
+    ],
+    "styles": [
+      "@pint",
+      "@analyse"
     ]
   }
 }
