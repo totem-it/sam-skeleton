@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class LocalizationMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $headerLanguage = trim($request->header('Accept-Language', ''));
 

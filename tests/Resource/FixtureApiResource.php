@@ -7,6 +7,10 @@ namespace Totem\SamSkeleton\Tests\Resource;
 use Illuminate\Http\Request;
 use Totem\SamSkeleton\Bundles\Resource\ApiResource;
 
+/**
+ * @property int $id
+ * @property mixed $is_published
+ */
 class FixtureApiResource extends ApiResource
 {
     public function toArray(Request $request): array

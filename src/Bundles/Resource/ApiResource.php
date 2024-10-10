@@ -48,7 +48,7 @@ class ApiResource extends JsonResource
         return new ApiCollection($resource, static::class);
     }
 
-    protected function whenHasAttribute(string $attribute, $value = null, $default = null): mixed
+    protected function whenHasAttribute(string $attribute, mixed $value = null, mixed $default = null): mixed
     {
         if (array_key_exists($attribute, $this->resource->getAttributes())) {
             return $value instanceof Closure
