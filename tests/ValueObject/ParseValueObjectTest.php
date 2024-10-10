@@ -9,7 +9,7 @@ use Totem\SamSkeleton\Bundles\ValueObject\ParseValueObject;
 
 uses(TestCase::class);
 
-covers(ParseValueObject::class);
+mutates(ParseValueObject::class);
 
 beforeEach(function () {
     $this->dummy = $this->partialMock(FixtureParseValueObject::class)->shouldAllowMockingProtectedMethods();

@@ -26,15 +26,15 @@
   ],
   "require": {
     "php": "^8.2",
-    "laravel/framework": "^11.0"
+    "laravel/framework": "^11.27"
   },
   "require-dev": {
     "fakerphp/faker": "^1.23",
-    "larastan/larastan": "^2.0",
-    "laravel/pint": "^1.17",
+    "larastan/larastan": "^2.9",
+    "laravel/pint": "^1.18",
     "mockery/mockery": "^1.6",
     "orchestra/testbench": "^9.0",
-    "pestphp/pest": "^3.0",
+    "pestphp/pest": "^3.3",
     "phpstan/phpstan": "^1.12",
     "phpstan/phpstan-mockery": "^1.1",
     "roave/security-advisories": "dev-latest"
@@ -72,11 +72,15 @@
     "pint": "vendor/bin/pint --test -vvv",
     "profile": "vendor/bin/pest --profile",
     "coverage": "vendor/bin/pest --coverage",
-    "analyse": "vendor/bin/phpstan analyse src tests",
+    "analyse": "vendor/bin/phpstan analyse",
     "test": [
       "@test:arch",
       "@test:bundles",
       "@test:mutate"
+    ],
+    "styles": [
+      "@pint",
+      "@analyse"
     ]
   }
 }

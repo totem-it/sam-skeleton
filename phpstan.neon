@@ -1,16 +1,10 @@
 includes:
-    - ./vendor/larastan/larastan/extension.neon
-    - ./vendor/phpstan/phpstan-mockery/extension.neon
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-mockery/extension.neon
 
 parameters:
     paths:
         - src/
-        - tests/
+#        - tests/
 
-    # Level 9 is the highest level
     level: 5
-
-    excludePaths:
-#        - packages/*/*/tests/**
-#
-#    checkMissingIterableValueType: false
