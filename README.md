@@ -52,7 +52,7 @@ Functionalities are organized into packages within the src/Bundles folder:
 
 ### AuthorizedRequest
 
-The trait is used in request classes to automatically check if a user is authorized to perform a given action.
+The trait is used in `FormRequest` classes to automatically check if a user is authorized to perform a given action.
 It ensures that only authenticated users can proceed with the request.
 
 ### TrustOnlyAuthenticated
