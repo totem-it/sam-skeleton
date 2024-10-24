@@ -30,6 +30,13 @@ describe('Authorization logic', function () {
         expect($request->authorize())->toBeTrue();
     });
 
+    it('denies access to unauthorized users', function (): void {
+        $request = new FixtureRequest();
+        $request->setContainer(app());
+
+        expect($request->authorize())->toBeFalse();
+    });
+
     it('denies access to unauthorized users when container is not provided', function (): void {
         $request = new FixtureRequest();
 
