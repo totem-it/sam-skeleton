@@ -54,9 +54,7 @@ describe('Middleware Logic', function (): void {
 
     it('throws an exception if the user is not logged in', function () {
         $request = Request::create('user/' . fake()->uuid());
-
-        $route = Route::getRoutes()->match($request);
-        $request->setRouteResolver(fn () => $route);
+        $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
 
         expect(fn () => $this->middleware->handle($request, fn () => null))
             ->toThrow(AccessDeniedHttpException::class, __('The user is not allowed to modify it.'));
@@ -65,9 +63,7 @@ describe('Middleware Logic', function (): void {
     it('throws an exception if the route UUID is not defined', function () {
         $request = Request::create('user');
         $request->setUserResolver(fn () => $this->user);
-
-        $route = Route::getRoutes()->match($request);
-        $request->setRouteResolver(fn () => $route);
+        $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
 
         expect(fn () => $this->middleware->handle($request, fn () => null))
             ->toThrow(AccessDeniedHttpException::class, __('The user is not allowed to modify it.'));
