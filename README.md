@@ -101,9 +101,7 @@ Route::middleware(ForceJsonMiddleware::class)->get('/', [MyController::class, 'i
 
 ### ApiCollection
 
-Used to return a collection of models in an API response. Extends the ResourceCollection by providing additional
-information
-to the API response
+Used to return a collection of models in an API response. Extends the ResourceCollection by providing additional information to the API response
 
 ### ApiResource
 
