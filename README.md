@@ -35,6 +35,9 @@ Remember to put repository in a composer.json
 
 Functionalities are organized into packages within the src/Bundles folder:
 
+- [Auth](#Auth)
+    - [AuthorizedRequest](#AuthorizedRequest)
+    - [TrustOnlyAuthenticated](#TrustOnlyAuthenticated)
 - [Middleware](#middleware)
     - [LocalizationMiddleware](#LocalizationMiddleware)
     - [ForceJsonMiddleware](#ForceJsonMiddleware)
@@ -42,6 +45,26 @@ Functionalities are organized into packages within the src/Bundles folder:
     - [ApiCollection](#ApiCollection)
     - [ApiResource](#ApiResource)
 - [ValueObject](#ValueObject)
+
+---
+
+## Auth
+
+### AuthorizedRequest
+
+The trait is used in request classes to automatically check if a user is authorized to perform a given action.
+It ensures that only authenticated users can proceed with the request.
+
+### TrustOnlyAuthenticated
+
+The middleware checks if the authenticated user’s UUID matches the UUID in the route
+
+example:
+
+```php
+Route::middleware(TrustOnlyAuthenticated::class)->group(function () {
+    Route::post('/user/{uuid}/update', [UserController::class, 'update']);
+```
 
 ---
 
@@ -59,6 +82,7 @@ Route::middleware(LocalizationMiddleware::class)->get('/', [MyController::class,
 ```
 
 ### ForceJsonMiddleware
+
 This middleware changes the `accept: *` header to `accept: application/json`.
 
 example:
@@ -77,7 +101,8 @@ Route::middleware(ForceJsonMiddleware::class)->get('/', [MyController::class, 'i
 
 ### ApiCollection
 
-Used to return a collection of models in an API response. Extends the ResourceCollection by providing additional information
+Used to return a collection of models in an API response. Extends the ResourceCollection by providing additional
+information
 to the API response
 
 ### ApiResource
@@ -86,8 +111,8 @@ extends JsonResource
 
 - `whenHasAttribute()` Checks if the resource has the specified attribute.
 - `noContent()` - Allows the response to be returned with an HTTP 204 (No Content) status code.
----
 
+---
 
 ## ValueObject
 
