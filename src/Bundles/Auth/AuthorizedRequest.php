@@ -6,9 +6,6 @@ namespace Totem\SamSkeleton\Bundles\Auth;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-/**
- * @mixin \Illuminate\Foundation\Http\FormRequest
- */
 trait AuthorizedRequest
 {
     /**
