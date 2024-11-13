@@ -13,7 +13,7 @@ class TrustOnlyAuthenticated
     public function handle(Request $request, Closure $next): mixed
     {
         if ($this->getUser($request)->getAttribute('uuid') !== $this->getRoute($request)) {
-            $this->throwException();
+            throw $this->throwException();
         }
 
         return $next($request);
@@ -23,7 +23,7 @@ class TrustOnlyAuthenticated
     {
         return tap($request->route('uuid'), function ($uuid) {
             if (! $uuid) {
-                $this->throwException();
+                throw $this->throwException();
             }
         });
     }
@@ -32,13 +32,13 @@ class TrustOnlyAuthenticated
     {
         return tap($request->user(), function ($user) {
             if (! $user) {
-                $this->throwException();
+                throw $this->throwException();
             }
         });
     }
 
-    private function throwException(): void
+    private function throwException(): AccessDeniedHttpException
     {
-        throw new AccessDeniedHttpException(__('The user is not allowed to modify it.'));
+        return new AccessDeniedHttpException(__('The user is not allowed to modify it.'));
     }
 }
