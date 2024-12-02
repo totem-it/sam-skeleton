@@ -14,6 +14,7 @@ trait AuthorizedRequest
     public function authorize(): bool
     {
         try {
+            /** @phpstan-ignore-next-line  */
             return $this->container?->make('auth')->check() ?? false;
         } catch (BindingResolutionException) {
             return false;
