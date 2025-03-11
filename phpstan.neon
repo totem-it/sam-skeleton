@@ -8,3 +8,10 @@ parameters:
 #        - tests/
 
     level: 6
+
+    ignoreErrors:
+        -
+            message: '#Trait .+ is used zero times and is not analysed.#'
+            paths:
+                - '*/Bundles/Auth/AuthorizedRequest.php'
+                - '*/Bundles/ValueObject/ParseValueObject.php'
