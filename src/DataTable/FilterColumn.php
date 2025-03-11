@@ -18,7 +18,7 @@ class FilterColumn implements Arrayable
     public array $items = [];
 
     /**
-     * @param string|array<int, array{title?: string, value?: string}> $items
+     * @param string|array<int, array{title?: string, value?: string}>|int[] $items
      */
     public function __construct(
         public string $label,
@@ -34,7 +34,7 @@ class FilterColumn implements Arrayable
     }
 
     /**
-     * @param string|array<int, array{title: string, value: string}> $items
+     * @param string|array<int, array{title: string, value: string}>|int[] $items
      *
      * @return array<int, array{title: string, value: string}>
      */
@@ -63,7 +63,7 @@ class FilterColumn implements Arrayable
     }
 
     /**
-     * @param string|array<int, array{title: string, value: string}> $items
+     * @param string|array<int, array{title: string, value: string}>|int[] $items
      */
     private function isArray(array|string $items): bool
     {
@@ -71,12 +71,13 @@ class FilterColumn implements Arrayable
     }
 
     /**
-     * @param string|array<int, array{title?: string, value?: string}> $items
+     * @param string|array<int, array{title?: string, value?: string}>|int[] $items
      */
     private function isNestedArray(array|string $items): bool
     {
         return $this->isArray($items)
             && array_key_exists(0, $items)
+            && is_array($items[0])
             && array_key_exists('title', $items[0])
             && array_key_exists('value', $items[0]);
     }
