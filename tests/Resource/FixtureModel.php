@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FixtureModel extends Model
 {
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function __construct(array $attributes = [])
     {
         static::unguard();
