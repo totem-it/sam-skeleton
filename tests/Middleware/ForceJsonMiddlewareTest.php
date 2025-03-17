@@ -19,6 +19,7 @@ beforeEach(function () {
 });
 
 it('returns the callback result', function (): void {
+    /** @var Request $middleware */
     $middleware = $this->middleware->handle(createAcceptRequest(), fn (Request $request) => $request);
 
     expect($middleware)

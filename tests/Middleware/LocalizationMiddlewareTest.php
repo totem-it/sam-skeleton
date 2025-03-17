@@ -96,6 +96,7 @@ describe('locale behavior', function (): void {
 });
 
 it('not changing return callback result', function ($payload): void {
+    /** @var Request $middleware */
     $middleware = $this->middleware->handle(createLangRequest($payload), fn (Request $request) => $request);
 
     expect($middleware)
@@ -114,9 +115,11 @@ it('not set accept-language header when request header is missing', function () 
     $request = createLangRequest();
     $request->headers->replace();
 
+    /** @var Request $middleware */
     $middleware = $this->middleware->handle($request, fn (Request $request) => $request);
 
-    expect($middleware)->toBeInstanceOf(Request::class)
+    expect($middleware)
+        ->toBeInstanceOf(Request::class)
         ->headers->get('accept-language')->toBeNull();
 });
 
