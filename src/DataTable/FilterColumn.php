@@ -18,7 +18,7 @@ class FilterColumn implements Arrayable
     public array $items = [];
 
     /**
-     * @param string|array<int, array{title?: string, value?: string}>|int[] $items
+     * @param string|array<int, array{title?: string, value?: string|int}>|array<string, string>|int[] $items
      */
     public function __construct(
         public string $label,

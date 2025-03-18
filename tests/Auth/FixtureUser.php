@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User;
 
 class FixtureUser extends User
 {
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function __construct(array $attributes = [])
     {
         static::unguard();
