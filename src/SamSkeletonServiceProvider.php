@@ -9,14 +9,16 @@ use Totem\SamSkeleton\Bundles\Middleware\ForceJsonMiddleware;
 
 class SamSkeletonServiceProvider extends ServiceProvider
 {
+    use ContainerServices;
+
     public function boot(): void
     {
-        $this->app['router']->prependMiddlewareToGroup('api', ForceJsonMiddleware::class);
+        $this->router()->prependMiddlewareToGroup('api', ForceJsonMiddleware::class);
     }
 
     public function register(): void
     {
-        $this->app['config']->set([
+        $this->config()->set([
             'app.api' => env('APP_API', '1.0.0'),
         ]);
     }
