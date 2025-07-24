@@ -8,6 +8,7 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Routing\BindingRegistrar;
 use Illuminate\Contracts\Routing\Registrar;
+use Illuminate\Log\LogManager;
 use Illuminate\Routing\Router;
 
 trait ContainerServices
@@ -20,6 +21,11 @@ trait ContainerServices
     protected function events(): DispatcherContract
     {
         return $this->app['events'];
+    }
+
+    protected function log(): LogManager
+    {
+        return $this->app['log'];
     }
 
     protected function router(): Router|Registrar|BindingRegistrar
