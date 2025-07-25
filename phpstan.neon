@@ -17,3 +17,7 @@ parameters:
             paths:
                 - '*/Bundles/Auth/AuthorizedRequest.php'
                 - '*/Bundles/ValueObject/ParseValueObject.php'
+        -
+            message: '#Undefined variable: \$.*#'
+            paths:
+                - '*/Webhook/Webhook.php'

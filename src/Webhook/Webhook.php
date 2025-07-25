@@ -7,14 +7,16 @@ namespace Totem\SamSkeleton\Webhook;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Facades\Log;
-use Laravel\Horizon\Events\JobDeleted;
 use Psr\Log\LogLevel;
 
 readonly class Webhook
 {
-    public function handle(JobDeleted $event): void
+    /**
+     * @param \Laravel\Horizon\Events\JobDeleted $event
+     */
+    public function handle($event): void
     {
-        $command = unserialize($event->job->payload()['data']['command'] ?? '', ['allowed_classes' => true]);
+        $command = $this->unserialize();
 
         Log::log(
             level: $event->job->hasFailed() ? LogLevel::ERROR : LogLevel::DEBUG,
@@ -30,5 +32,10 @@ readonly class Webhook
     public static function run(ShouldQueue $command): PendingDispatch
     {
         return new PendingDispatch($command);
+    }
+
+    private function unserialize(): false|object
+    {
+        return unserialize($event->job->payload()['data']['command'] ?? '', ['allowed_classes' => true]);
     }
 }
