@@ -1,87 +1,88 @@
 {
-  "name": "totem-it/sam-skeleton",
-  "description": "Basic elements for sam application.",
-  "version": "1.0.0",
-  "keywords": [
-    "laravel",
-    "sam",
-    "core",
-    "repository",
-    "skeleton",
-    "upload",
-    "files"
-  ],
-  "license": "BSD-3-Clause",
-  "authors": [
-    {
-      "name": "Borys Żmuda",
-      "email": "rudashi@gmail.com",
-      "homepage": "https://rudashi.github.io",
-      "role": "Developer"
-    },
-    {
-      "name": "Piotr Rosiak",
-      "email": "piotr.rosiak@totem.com.pl",
-      "role": "Junior Developer"
-    }
-  ],
-  "require": {
-    "php": "^8.2 || ^8.3",
-    "laravel/framework": "^11.0 || ^12.0"
-  },
-  "require-dev": {
-    "fakerphp/faker": "^1.23",
-    "larastan/larastan": "^3.1",
-    "laravel/pint": "^1.21",
-    "mockery/mockery": "^1.6",
-    "orchestra/testbench": "^10.1",
-    "pestphp/pest": "^3.7",
-    "phpstan/phpstan": "^2.1",
-    "phpstan/phpstan-mockery": "^2.0",
-    "roave/security-advisories": "dev-latest"
-  },
-  "autoload": {
-    "psr-4": {
-      "Totem\\SamSkeleton\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Totem\\SamSkeleton\\Tests\\": "tests"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Totem\\SamSkeleton\\SamSkeletonServiceProvider"
-      ]
-    }
-  },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true,
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "scripts": {
-    "test:arch": "vendor/bin/pest --filter=arch",
-    "test:bundles": "vendor/bin/pest --testsuite=bundles",
-    "test:mutate": "vendor/bin/pest --mutate",
-    "pint": "vendor/bin/pint --test -vvv",
-    "profile": "vendor/bin/pest --profile",
-    "coverage": "vendor/bin/pest --coverage",
-    "analyse": "vendor/bin/phpstan analyse",
-    "test": [
-      "@test:arch",
-      "@test:bundles",
-      "@test:mutate"
+    "name": "totem-it/sam-skeleton",
+    "description": "Basic elements for sam application.",
+    "version": "1.0.0",
+    "keywords": [
+        "laravel",
+        "sam",
+        "core",
+        "repository",
+        "skeleton",
+        "upload",
+        "files"
     ],
-    "styles": [
-      "@pint",
-      "@analyse"
-    ]
-  }
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Borys Żmuda",
+            "email": "rudashi@gmail.com",
+            "homepage": "https://rudashi.github.io",
+            "role": "Developer"
+        },
+        {
+            "name": "Piotr Rosiak",
+            "email": "piotr.rosiak@totem.com.pl",
+            "role": "Junior Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2 || ^8.3",
+        "laravel/framework": "^11.0 || ^12.0",
+        "laravel/horizon": "^5.33"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.1",
+        "laravel/pint": "^1.21",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^10.1",
+        "pestphp/pest": "^3.7",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-mockery": "^2.0",
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Totem\\SamSkeleton\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Totem\\SamSkeleton\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Totem\\SamSkeleton\\SamSkeletonServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test:arch": "vendor/bin/pest --filter=arch",
+        "test:bundles": "vendor/bin/pest --testsuite=bundles",
+        "test:mutate": "vendor/bin/pest --mutate",
+        "pint": "vendor/bin/pint --test -vvv",
+        "profile": "vendor/bin/pest --profile",
+        "coverage": "vendor/bin/pest --coverage",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": [
+            "@test:arch",
+            "@test:bundles",
+            "@test:mutate"
+        ],
+        "styles": [
+            "@pint",
+            "@analyse"
+        ]
+    }
 }

@@ -7,6 +7,7 @@ namespace Totem\SamSkeleton\Tests\Webhook;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Queue\Jobs\RedisJob;
 use Illuminate\Support\Facades\Log;
+use Laravel\Horizon\Events\JobDeleted;
 use Orchestra\Testbench\TestCase;
 use Psr\Log\LogLevel;
 use Totem\SamSkeleton\Webhook\Webhook;
@@ -38,10 +39,9 @@ it('logs debug when job not failed', function () {
         'data' => ['command' => serialize((object) [])],
     ]);
 
-    $eventMock = $this->mock('Laravel\Horizon\Events\JobDeleted');
-    $eventMock->job = $mock;
+    $event = new JobDeleted($mock, '');
 
-    $this->webhook->handle($eventMock);
+    $this->webhook->handle($event);
 });
 
 it('logs error when job failed', function () {
@@ -65,10 +65,9 @@ it('logs error when job failed', function () {
         'data' => ['command' => serialize((object) [])],
     ]);
 
-    $eventMock = $this->mock('Laravel\Horizon\Events\JobDeleted');
-    $eventMock->job = $mock;
+    $event = new JobDeleted($mock, '');
 
-    $this->webhook->handle($eventMock);
+    $this->webhook->handle($event);
 });
 
 it('logs with command array when command has toArray method', function () {
@@ -94,10 +93,9 @@ it('logs with command array when command has toArray method', function () {
         'data' => ['command' => serialize(new FixtureJob($commandData))],
     ]);
 
-    $eventMock = $this->mock('Laravel\Horizon\Events\JobDeleted');
-    $eventMock->job = $mock;
+    $event = new JobDeleted($mock, '');
 
-    $this->webhook->handle($eventMock);
+    $this->webhook->handle($event);
 });
 
 it('works when command data is missing', function () {
@@ -121,10 +119,9 @@ it('works when command data is missing', function () {
         'data' => [],
     ]);
 
-    $eventMock = $this->mock('Laravel\Horizon\Events\JobDeleted');
-    $eventMock->job = $mock;
+    $event = new JobDeleted($mock, '');
 
-    $this->webhook->handle($eventMock);
+    $this->webhook->handle($event);
 });
 
 it('works when payload data is missing', function () {
@@ -146,10 +143,9 @@ it('works when payload data is missing', function () {
     $mock->shouldReceive('hasFailed')->andReturn(false);
     $mock->shouldReceive('payload')->andReturn([]);
 
-    $eventMock = $this->mock('Laravel\Horizon\Events\JobDeleted');
-    $eventMock->job = $mock;
+    $event = new JobDeleted($mock, '');
 
-    $this->webhook->handle($eventMock);
+    $this->webhook->handle($event);
 });
 
 it('run method returns pending dispatch', function () {
