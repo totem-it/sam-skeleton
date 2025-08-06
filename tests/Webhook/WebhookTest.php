@@ -23,7 +23,7 @@ it('logs debug when job not failed', function () {
         ->once()
         ->with(
             LogLevel::DEBUG,
-            'Webhook',
+            'Webhook: [TestJob]',
             [
                 'id' => 'test-job-id',
                 'class' => 'TestJob',
@@ -49,7 +49,7 @@ it('logs error when job failed', function () {
         ->once()
         ->with(
             LogLevel::ERROR,
-            'Webhook',
+            'Webhook: [FailedJob]',
             [
                 'id' => 'failed-job-id',
                 'class' => 'FailedJob',
@@ -77,7 +77,7 @@ it('logs with command array when command has toArray method', function () {
         ->once()
         ->with(
             LogLevel::DEBUG,
-            'Webhook',
+            'Webhook: [TestJob]',
             [
                 'id' => 'test-job-id',
                 'class' => 'TestJob',
@@ -103,7 +103,7 @@ it('works when command data is missing', function () {
         ->once()
         ->with(
             LogLevel::DEBUG,
-            'Webhook',
+            'Webhook: [TestJob]',
             [
                 'id' => 'test-job-id',
                 'class' => 'TestJob',
@@ -129,7 +129,7 @@ it('works when payload data is missing', function () {
         ->once()
         ->with(
             LogLevel::DEBUG,
-            'Webhook',
+            'Webhook: [TestJob]',
             [
                 'id' => 'test-job-id',
                 'class' => 'TestJob',

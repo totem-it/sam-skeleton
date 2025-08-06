@@ -15,13 +15,14 @@ readonly class Webhook
     public function handle(JobDeleted $event): void
     {
         $command = $this->unserialize($event);
+        $jobClass = $event->job->resolveName();
 
         Log::log(
             level: $event->job->hasFailed() ? LogLevel::ERROR : LogLevel::DEBUG,
-            message: 'Webhook',
+            message: 'Webhook: [' . $jobClass . ']',
             context: [
                 'id' => $event->job->getJobId(),
-                'class' => $event->job->resolveName(),
+                'class' => $jobClass,
                 'body' => $command && method_exists($command, 'toArray') ? $command->toArray() : '',
             ],
         );
