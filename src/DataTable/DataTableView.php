@@ -16,16 +16,19 @@ class DataTableView implements Arrayable
      * @param \Totem\SamSkeleton\DataTable\FilterColumn[] $filters
      */
     public function __construct(
+        public readonly string $key,
         public readonly string $name,
         public array $headers = [],
         public array $filters = [],
     ) {
     }
 
-    public function addFilter(FilterColumn $filter): self
+    public function addFilter(FilterColumn $filter, string|int|null $value = null): self
     {
-        if (! isset($this->filters[$filter->label])) {
-            $this->filters[$filter->label] = $filter;
+        $key = is_int($value) || $value === null ? $filter->label : $value;
+
+        if (! isset($this->filters[$key])) {
+            $this->filters[$key] = $filter;
         }
 
         return $this;
@@ -36,8 +39,8 @@ class DataTableView implements Arrayable
      */
     public function addFilters(array $filters): self
     {
-        foreach ($filters as $filter) {
-            $this->addFilter($filter);
+        foreach ($filters as $key => $filter) {
+            $this->addFilter($filter, $key);
         }
 
         return $this;
@@ -73,8 +76,8 @@ class DataTableView implements Arrayable
         ];
     }
 
-    public static function make(string $name): self
+    public static function make(string $key, string|null $name = null): self
     {
-        return new self($name);
+        return new self($key, $name ?? $key);
     }
 }

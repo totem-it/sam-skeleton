@@ -24,8 +24,8 @@ class DataTable implements Arrayable
 
     public function addView(DataTableView $view): self
     {
-        if (! isset($this->views[$view->name])) {
-            $this->views[$view->name] = $view;
+        if (! isset($this->views[$view->key])) {
+            $this->views[$view->key] = $view;
         }
 
         return $this;
@@ -56,7 +56,7 @@ class DataTable implements Arrayable
         }
 
         if ($this->defaultView === null && $views !== []) {
-            $this->setDefaultView($views[0]->name);
+            $this->setDefaultView($views[0]->key);
         }
 
         return $this;
@@ -70,9 +70,9 @@ class DataTable implements Arrayable
         ];
     }
 
-    public function view(string $name): DataTableView
+    public function view(string $key): DataTableView
     {
-        return $this->views[$name] ?? throw new UnexpectedValueException('View key [' . $name . '] is not registered.');
+        return $this->views[$key] ?? throw new UnexpectedValueException('View key [' . $key . '] is not registered.');
     }
 
     /**

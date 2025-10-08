@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements \Illuminate\Contracts\Support\Arrayable<string, string|bool>
  */
-readonly class Header implements Arrayable
+class Header implements Arrayable
 {
     public function __construct(
         public string $value,
@@ -26,5 +26,52 @@ readonly class Header implements Arrayable
     public function toArray(): array
     {
         return array_filter((array) $this, static fn ($v) => $v !== null);
+    }
+
+    public function disableSort(): self
+    {
+        $this->sortable = false;
+
+        return $this;
+    }
+
+    public function disableFilter(): self
+    {
+        $this->filterable = false;
+
+        return $this;
+    }
+
+    public function align(string $align): self
+    {
+        $this->align = $align;
+
+        return $this;
+    }
+
+    public function description(string $text): self
+    {
+        $this->description = $text;
+
+        return $this;
+    }
+
+    public function filterBy(string $filter): self
+    {
+        $this->customFilter = $filter;
+
+        return $this;
+    }
+
+    public function hide(string|bool $value): self
+    {
+        $this->hide = $value;
+
+        return $this;
+    }
+
+    public static function make(string $title, string $value): self
+    {
+        return new self($value, $title);
     }
 }
