@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Totem\SamSkeleton\Tests\ServiceProvider;
+namespace Totem\SamSkeleton\Tests\Repository;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\LockedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Totem\SamSkeleton\Tests\Repository\FixtureRepository;
+use Totem\SamSkeleton\Repository\UseRepository;
 use Totem\SamSkeleton\Tests\TestCase;
 
 uses(TestCase::class);
+
+mutates(UseRepository::class);
 
 beforeEach(function (): void {
     $this->testCase = new FixtureRepository();
