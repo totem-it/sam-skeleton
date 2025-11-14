@@ -17,4 +17,4 @@ parameters:
             paths:
                 - '*/Bundles/Auth/AuthorizedRequest.php'
                 - '*/Bundles/ValueObject/ParseValueObject.php'
-                - '*/Bundles/Repository/UseRepository.php'
+                - '*/Repository/UseRepository.php'
