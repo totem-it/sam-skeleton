@@ -10,11 +10,11 @@ use Totem\SamSkeleton\Filterable\Query\AllowedFilter;
 
 class FiltersRequest
 {
-    /* @var AllowedFilter[] $filters */
+    /** @var AllowedFilter[] */
     private array $filters = [];
 
     /**
-     * @param array<string, string[]|string> $input
+     * @param array<string, string|array<string, string|int|null>> $input
      */
     public function __construct(
         private readonly array $input = [],
@@ -22,13 +22,13 @@ class FiltersRequest
     }
 
     /**
-     * @param array<string, string[]|string>|string $fieldSets
+     * @param array<string, string|array<string, string|int|null>> $fieldSets
      *
      * @return AllowedFilter[]
      */
-    public static function parse(array|string $fieldSets): array
+    public static function parse(array $fieldSets): array
     {
-        return (new static(self::normalizeInput($fieldSets)))();
+        return (new self($fieldSets))();
     }
 
     /**
@@ -64,7 +64,7 @@ class FiltersRequest
     }
 
     /**
-     * @param array<string, mixed> $values
+     * @param array<string, string|int> $values
      */
     private function buildArray(string $field, array $values): void
     {
@@ -77,13 +77,7 @@ class FiltersRequest
         }
     }
 
-    /**
-     * @param string $field
-     * @param mixed $values
-     *
-     * @return AllowedFilter
-     */
-    private function buildSingleFilter(string $field, mixed $values): AllowedFilter
+    private function buildSingleFilter(string $field, string|int|null $values): AllowedFilter
     {
         if ($this->isNullValue($values)) {
             return AllowedFilter::make(

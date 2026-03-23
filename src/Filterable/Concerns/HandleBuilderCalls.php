@@ -12,7 +12,7 @@ trait HandleBuilderCalls
     use ForwardsCalls;
 
     /**
-     * @return array
+     * @return array<string, \Closure>
      */
     public function getEagerLoads(): array
     {
@@ -37,6 +37,8 @@ trait HandleBuilderCalls
 
     /**
      * @param string[] $columns
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, \Illuminate\Database\Eloquent\Model>
      */
     public function get(array $columns = ['*']): Collection
     {
@@ -45,6 +47,9 @@ trait HandleBuilderCalls
         return $this->scopedBuilder->get($columns);
     }
 
+    /**
+     * @param array<array-key, mixed> $arguments
+     */
     public function __call(string $name, array $arguments): mixed
     {
         $this->pipelineQuery();

@@ -26,13 +26,16 @@ class Filterable
     use UseFilters;
     use UseSorts;
 
-    protected Request $request;
+    protected FilterableRequest $request;
     protected string $modelTable;
     protected Fields $fields;
     protected Filter $filters;
     protected Includes $includes;
     protected Sort $sorts;
 
+    /**
+     * @param Builder<Model> $scopedBuilder
+     */
     public function __construct(
         protected Builder $scopedBuilder,
         ?Request $request = null,
@@ -46,12 +49,9 @@ class Filterable
     }
 
     /**
-     * @param class-string<Model>|\Illuminate\Database\Eloquent\Builder $model
-     * @param \Illuminate\Http\Request|null $request
-     *
-     * @return static
+     * @param class-string<Model>|Builder<Model> $model
      */
-    public static function for(string|Builder $model, ?Request $request = null): static
+    public static function for(string|Builder $model, ?Request $request = null): self
     {
         if (is_subclass_of($model, Model::class)) {
             $model = $model::query();
@@ -61,7 +61,7 @@ class Filterable
             throw new InvalidFilterableArgument();
         }
 
-        return new static($model, $request);
+        return new self($model, $request);
     }
 
     public static function create(?Request $request = null): FilterableBuilder
@@ -74,11 +74,14 @@ class Filterable
         return FilterableRequest::fromRequest(app(Request::class));
     }
 
-    public function getRequest(): Request
+    public function getRequest(): FilterableRequest
     {
         return $this->request;
     }
 
+    /**
+     * @return Builder<Model>
+     */
     public function getBuilder(): Builder
     {
         return $this->scopedBuilder;
@@ -139,6 +142,10 @@ class Filterable
         }
     }
 
+    /**
+     * @param array|string|AllowedRelation ...$relationships
+     * @phpstan-param string|string[] ...$relationships
+     */
     public function allowedIncludes(array|string|AllowedRelation ...$relationships): static
     {
         $this->includes
@@ -148,6 +155,9 @@ class Filterable
         return $this;
     }
 
+    /**
+     * @return AllowedRelation[]
+     */
     public function getIncludes(): array
     {
         return $this->includes->getIncludes();

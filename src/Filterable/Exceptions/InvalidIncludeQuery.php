@@ -26,8 +26,8 @@ class InvalidIncludeQuery extends BadRequestHttpException
      * @param string[] $unknown
      * @param string[] $allowed
      */
-    public static function make(array $unknown, array $allowed): static
+    public static function make(array $unknown, array $allowed): self
     {
-        return new static($unknown, $allowed);
+        return new self($unknown, $allowed);
     }
 }

@@ -13,18 +13,18 @@ class InvalidFieldValue extends InvalidArgumentException
         parent::__construct($message);
     }
 
-    public static function dots(): static
+    public static function dots(): self
     {
-        return new static('Field cannot start or end with a dot.');
+        return new self('Field cannot start or end with a dot.');
     }
 
-    public static function multipleDots(): static
+    public static function multipleDots(): self
     {
-        return new static('Field cannot contain consecutive dots.');
+        return new self('Field cannot contain consecutive dots.');
     }
 
-    public static function nonString(): static
+    public static function nonString(): self
     {
-        return new static('Non-string field provided.');
+        return new self('Non-string field provided.');
     }
 }

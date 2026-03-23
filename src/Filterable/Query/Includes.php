@@ -16,7 +16,7 @@ class Includes
     /** @var AllowedRelation[] */
     protected array $includes = [];
 
-    /** @var array{ string: 'asc' | 'desc' } */
+    /** @var string[] */
     protected array $parsedIncludes = [];
 
     public function __construct(
@@ -48,7 +48,7 @@ class Includes
     }
 
     /**
-     * @return array{ string: 'asc' | 'desc' }
+     * @return string[]
      */
     public function parseFromRequest(FilterableRequest $request): array
     {
@@ -80,7 +80,7 @@ class Includes
     }
 
     /**
-     * @param string[] $fields
+     * @param int[]|string[]|AllowedRelation[] $fields
      *
      * @return Array<string, AllowedRelation>
      */

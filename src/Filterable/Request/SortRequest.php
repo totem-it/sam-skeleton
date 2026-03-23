@@ -10,7 +10,7 @@ use Totem\SamSkeleton\Filterable\Enum\SortDirection;
 readonly class SortRequest
 {
     /**
-     * @param array<string, string[]> $input
+     * @param string[] $input
      */
     public function __construct(
         private array $input = [],
@@ -18,13 +18,11 @@ readonly class SortRequest
     }
 
     /**
-     * @param array<string, 'asc' | 'desc'>|string $fieldSets
-     *
      * @return array<string, 'asc' | 'desc'>
      */
-    public static function parse(array|string $fieldSets): array
+    public static function parse(string $fieldSets): array
     {
-        return (new static($fieldSets ? self::normalizeInput($fieldSets) : []))();
+        return (new self($fieldSets ? self::normalizeInput($fieldSets) : []))();
     }
 
     /**
@@ -34,7 +32,7 @@ readonly class SortRequest
     {
         $result = [];
 
-        foreach (self::normalizeInput($this->input) as $field) {
+        foreach ($this->input as $field) {
             $key = ltrim($field, '-');
 
             $result[$key] = $field[0] === '-' ? SortDirection::DESC->value : SortDirection::ASC->value;
@@ -45,12 +43,12 @@ readonly class SortRequest
     }
 
     /**
-     * @param array<string, string[]>|string $input
+     * @param string $input
      *
      * @return string[]
      */
-    protected static function normalizeInput(array|string $input): array
+    protected static function normalizeInput(string $input): array
     {
-        return is_string($input) ? explode(RequestConfig::DELIMITER->value, $input) : $input;
+        return explode(RequestConfig::DELIMITER->value, $input);
     }
 }

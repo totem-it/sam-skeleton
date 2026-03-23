@@ -15,7 +15,7 @@ class Sort
     /** @var string[] */
     protected array $sorts = [];
 
-    /** @var array{ string: 'asc' | 'desc' } */
+    /** @var array<string, 'asc' | 'desc'> */
     protected array $parsedSorts = [];
 
     public function __construct(
@@ -47,7 +47,7 @@ class Sort
     }
 
     /**
-     * @return array{ string: 'asc' | 'desc' }
+     * @return array<string, 'asc' | 'desc'>
      */
     public function parseFromRequest(FilterableRequest $request): array
     {
@@ -65,8 +65,9 @@ class Sort
     }
 
     /**
-     * @param array{ string: 'asc' | 'desc' } $requestedSorts
-     * @return array{ string: 'asc' | 'desc' }
+     * @param array<string, 'asc' | 'desc'> $requestedSorts
+     *
+     * @return array<string, 'asc' | 'desc'>
      */
     public function parseSortField(array $requestedSorts): array
     {

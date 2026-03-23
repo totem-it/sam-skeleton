@@ -75,8 +75,6 @@ class Filter
             throw InvalidFilterQuery::make($unknownFields, $this->filters);
         }
 
-        $this->parsedFilters = array_unique($this->parsedFilters);
-
         return $this->parsedFilters;
     }
 }

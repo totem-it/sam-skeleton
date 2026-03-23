@@ -16,7 +16,7 @@ class FilterableRequest extends Request
 {
     public bool $kebabCase = false;
 
-    /** @var string[] */
+    /** @var array<string, array<string, string>> */
     private array $cachedFields = [];
 
     /** @var array<string, AllowedFilter> */
@@ -31,9 +31,9 @@ class FilterableRequest extends Request
     /**
      * @param array{ kebab-case: boolean } $options
      */
-    public static function fromRequest(Request $request, array $options = ['kebab-case' => false]): static
+    public static function fromRequest(Request $request, array $options = ['kebab-case' => false]): self
     {
-        $instance = static::createFrom($request, new static());
+        $instance = parent::createFrom($request, new self());
 
         if ($options['kebab-case']) {
             $instance->kebabCase = true;

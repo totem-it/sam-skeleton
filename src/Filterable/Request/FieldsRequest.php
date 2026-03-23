@@ -9,7 +9,7 @@ use Totem\SamSkeleton\Filterable\Enum\RequestConfig;
 readonly class FieldsRequest
 {
     /**
-     * @param array<string, string[]> $input
+     * @param array<array-key, string> $input
      */
     public function __construct(
         private array $input = [],
@@ -17,17 +17,17 @@ readonly class FieldsRequest
     }
 
     /**
-     * @param array<string, string[]>|string $fieldSets
+     * @param array<array-key, string>|string $fieldSets
      *
-     * @return string[]
+     * @return array<string, array<string, string>>
      */
     public static function parse(array|string $fieldSets): array
     {
-        return (new static(self::normalizeInput($fieldSets)))();
+        return (new self(self::normalizeInput($fieldSets)))();
     }
 
     /**
-     * @return string[]
+     * @return array<string, array<string, string>>
      */
     public function __invoke(): array
     {

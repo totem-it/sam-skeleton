@@ -9,7 +9,7 @@ use Totem\SamSkeleton\Filterable\Exceptions\InvalidFieldValue;
 trait Normalizer
 {
     /**
-     * @param string[] $fields
+     * @param array<array-key, string|int> $fields
      *
      * @return string[]
      */
