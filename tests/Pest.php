@@ -15,3 +15,30 @@ function createAcceptRequest(string $accept = ''): Request
 {
     return Request::create('/', 'GET', [], [], [], $accept ? ['HTTP_ACCEPT' => $accept] : []);
 }
+
+function createQueryFieldRequest(array|string $fields = []): Request
+{
+    return new Request([
+        'fields' => $fields,
+    ]);
+}
+
+function createQuerySortRequest(string $sorts = ''): Request
+{
+    return new Request([
+        'sort' => $sorts,
+    ]);
+}
+
+function createQueryFilterRequest(array $filters = []): Request
+{
+    return new Request([
+        'filter' => $filters,
+    ]);
+}
+function createQueryIncludeRequest(string $include = ''): Request
+{
+    return new Request([
+        'include' => $include,
+    ]);
+}
