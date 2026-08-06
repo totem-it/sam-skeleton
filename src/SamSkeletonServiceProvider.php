@@ -7,6 +7,7 @@ namespace Totem\SamSkeleton;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Horizon\Events\JobDeleted;
 use Totem\SamSkeleton\Bundles\Middleware\ForceJsonMiddleware;
+use Totem\SamSkeleton\Cache\QueryCache;
 use Totem\SamSkeleton\Webhook\Webhook;
 
 class SamSkeletonServiceProvider extends ServiceProvider
@@ -25,5 +26,7 @@ class SamSkeletonServiceProvider extends ServiceProvider
         $this->config()->set([
             'app.api' => env('APP_API', '1.0.0'),
         ]);
+
+        $this->app->scoped(QueryCache::class);
     }
 }
