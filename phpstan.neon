@@ -18,3 +18,4 @@ parameters:
                 - '*/Bundles/Auth/AuthorizedRequest.php'
                 - '*/Bundles/ValueObject/ParseValueObject.php'
                 - '*/Repository/UseRepository.php'
+                - '*/Cache/CachesQueries.php'
