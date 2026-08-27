@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class ApiCollection extends ResourceCollection
 {
     use AdditionalResourceData;
+    use ChunksResponse;
 
     public function __construct($resource, ?string $collects = null)
     {

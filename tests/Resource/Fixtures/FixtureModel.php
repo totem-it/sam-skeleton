@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Totem\SamSkeleton\Tests\Resource;
+namespace Totem\SamSkeleton\Tests\Resource\Fixtures;
 
 use Illuminate\Database\Eloquent\Model;
 

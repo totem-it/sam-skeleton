@@ -7,6 +7,8 @@ namespace Totem\SamSkeleton\Tests\Resource;
 use Illuminate\Http\Request;
 use Totem\SamSkeleton\Bundles\Resource\ApiCollection;
 use Totem\SamSkeleton\Bundles\Resource\ApiResource;
+use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureChunkedCollection;
+use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureModel;
 use Totem\SamSkeleton\Tests\TestCase;
 
 uses(TestCase::class);
@@ -53,4 +55,28 @@ it('returns response with correct data', function (): void {
     expect($response->getData())
         ->data->toMatchArray($this->resource)
         ->apiVersion->toBe(config('app.api'));
+});
+
+it('is not chunked by default', function (): void {
+    config(['app.api' => '1.2']);
+
+    $collection = new ApiCollection([['a' => 'b']], ApiResource::class);
+
+    expect($collection->toResponse($this->request)->getContent())
+        ->toBe('{"data":[{"a":"b"}],"apiVersion":"1.2"}');
+});
+
+test('chunked returns the same instance', function (): void {
+    $collection = new ApiCollection($this->resource, ApiResource::class);
+
+    expect($collection->chunked())
+        ->toBe($collection);
+});
+
+it('keeps subclass overrides when chunked', function (): void {
+    $collection = (new FixtureChunkedCollection([new FixtureModel()]))->chunked();
+
+    expect($collection->toResponse($this->request)->getData(true))
+        ->not->toHaveKey('apiVersion')
+        ->toHaveKey('data');
 });

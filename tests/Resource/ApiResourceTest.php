@@ -10,6 +10,8 @@ use Illuminate\Http\Resources\MissingValue;
 use Symfony\Component\HttpFoundation\Response;
 use Totem\SamSkeleton\Bundles\Resource\ApiCollection;
 use Totem\SamSkeleton\Bundles\Resource\ApiResource;
+use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureApiResource;
+use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureModel;
 use Totem\SamSkeleton\Tests\TestCase;
 
 uses(TestCase::class);

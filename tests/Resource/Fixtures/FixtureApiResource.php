@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Totem\SamSkeleton\Tests\Resource;
+namespace Totem\SamSkeleton\Tests\Resource\Fixtures;
 
 use Illuminate\Http\Request;
 use Totem\SamSkeleton\Bundles\Resource\ApiResource;
 
 /**
- * @property \Totem\SamSkeleton\Tests\Resource\FixtureModel $resource
+ * @property \Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureModel $resource
  */
 class FixtureApiResource extends ApiResource
 {

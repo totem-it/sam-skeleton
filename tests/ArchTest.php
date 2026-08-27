@@ -9,6 +9,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Totem\SamSkeleton\Bundles\Resource\ApiCollection;
 use Totem\SamSkeleton\Bundles\Resource\ApiResource;
+use Totem\SamSkeleton\Bundles\Resource\ChunkedApiCollection;
+use Totem\SamSkeleton\Bundles\Resource\ChunksResponse;
 use Totem\SamSkeleton\Cache\Cacheable;
 use Totem\SamSkeleton\Cache\CachedQuery;
 use Totem\SamSkeleton\Cache\CacheProfile;
@@ -51,6 +53,14 @@ describe('Bundle Resource', function (): void {
     arch('collection')
         ->expect(ApiCollection::class)
         ->toExtend(ResourceCollection::class);
+
+    arch('chunked collection')
+        ->expect(ChunkedApiCollection::class)
+        ->toExtend(ApiCollection::class);
+
+    arch('chunk trait')
+        ->expect(ChunksResponse::class)
+        ->toBeTrait();
 });
 
 describe('Cache', function (): void {
