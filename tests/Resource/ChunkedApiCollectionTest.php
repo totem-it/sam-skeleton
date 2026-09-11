@@ -15,6 +15,7 @@ use Totem\SamSkeleton\Bundles\Resource\ApiResource;
 use Totem\SamSkeleton\Bundles\Resource\ChunkedApiCollection;
 use Totem\SamSkeleton\Bundles\Resource\ChunksResponse;
 use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureApiResource;
+use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureBrokenOptionsCollection;
 use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureChunkedCollection;
 use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureEagerCollection;
 use Totem\SamSkeleton\Tests\Resource\Fixtures\FixtureModel;
@@ -240,4 +241,15 @@ it('does not wrap when there is no wrapper and no envelope', function (): void {
         ->toStartWith('[');
 
     ApiResource::wrap('data');
+});
+
+it('falls back to the standard response when the json options cannot be reflected', function (): void {
+    $resource = array_fill(0, 100, ['a' => 'b']);
+
+    $collection = new FixtureBrokenOptionsCollection($resource, ApiResource::class);
+    $standard = new ApiCollection($resource, ApiResource::class);
+
+    expect($collection)
+        ->toResponse($this->request)->getContent()->toBe($standard->toResponse($this->request)->getContent())
+        ->optionCalls->toBe(2);
 });

@@ -7,6 +7,9 @@ namespace Totem\SamSkeleton\Filterable\Concerns;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Traits\ForwardsCalls;
 
+/**
+ * @mixin \Illuminate\Database\Eloquent\Builder<\Illuminate\Database\Eloquent\Model>
+ */
 trait HandleBuilderCalls
 {
     use ForwardsCalls;

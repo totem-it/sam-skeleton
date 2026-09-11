@@ -44,7 +44,7 @@ describe('create instance', function (): void {
     });
 
     it('can create a builder instance', function (): void {
-        $result = Filterable::create();
+        $result = Filterable::build();
 
         expect($result)
             ->toBeInstanceOf(FilterableBuilder::class)

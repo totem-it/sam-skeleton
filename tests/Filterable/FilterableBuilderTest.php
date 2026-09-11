@@ -12,7 +12,7 @@ use Totem\SamSkeleton\Filterable\FilterableBuilder;
 uses(TestCase::class);
 
 it('can create a base instance from Filterable', function (): void {
-    $result = Filterable::create();
+    $result = Filterable::build();
 
     expect($result)
         ->toBeInstanceOf(FilterableBuilder::class)

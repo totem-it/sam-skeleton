@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\Filterable;
 
-use Orchestra\Testbench\TestCase;
 use Totem\SamSkeleton\Filterable\Exceptions\InvalidFieldValue;
 use Totem\SamSkeleton\Filterable\Exceptions\InvalidSortQuery;
 use Totem\SamSkeleton\Filterable\Filterable;
+use Totem\SamSkeleton\Filterable\Query\Sort;
+use Totem\SamSkeleton\Tests\TestCase;
 
 use function Totem\SamSkeleton\Tests\createQuerySortRequest;
 
@@ -202,5 +203,27 @@ describe('sort fields', function (): void {
                 InvalidSortQuery::class,
                 'Requested sorts [users.email] are not allowed. Allowed sorts are [users.name].'
             );
+    });
+});
+
+describe('parse sort field', function (): void {
+    it('returns nothing when no sort field is allowed', function (): void {
+        expect(new Sort('users'))
+            ->parseSortField(['id' => 'asc'])->toBe([]);
+    });
+
+    it('returns the already parsed sorts', function (): void {
+        $sort = (new Sort('users'))->allowedSorts('id');
+
+        expect($sort)
+            ->parseSortField(['id' => 'asc'])->toBe(['users.id' => 'asc'])
+            ->parseSortField(['name' => 'desc'])->toBe(['users.id' => 'asc']);
+    });
+
+    it('does not qualify the field when the model table is empty', function (): void {
+        $sort = (new Sort(''))->allowedSorts('relation.id');
+
+        expect($sort)
+            ->parseSortField(['relation.id' => 'desc'])->toBe(['relation.id' => 'desc']);
     });
 });

@@ -64,7 +64,7 @@ class Filterable
         return new self($model, $request);
     }
 
-    public static function create(?Request $request = null): FilterableBuilder
+    public static function build(?Request $request = null): FilterableBuilder
     {
         return FilterableBuilder::create($request ?? self::makeRequest());
     }
