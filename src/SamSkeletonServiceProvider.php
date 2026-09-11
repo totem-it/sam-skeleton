@@ -6,6 +6,7 @@ namespace Totem\SamSkeleton;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Horizon\Events\JobDeleted;
+use Totem\SamSkeleton\AutoUpdate\UpdateNoticeCommand;
 use Totem\SamSkeleton\Bundles\Middleware\ForceJsonMiddleware;
 use Totem\SamSkeleton\Cache\QueryCache;
 use Totem\SamSkeleton\Webhook\Webhook;
@@ -19,6 +20,10 @@ class SamSkeletonServiceProvider extends ServiceProvider
         $this->router()->prependMiddlewareToGroup('api', ForceJsonMiddleware::class);
 
         $this->events()->listen(JobDeleted::class, Webhook::class);
+
+        $this->commands([
+            UpdateNoticeCommand::class,
+        ]);
     }
 
     public function register(): void
