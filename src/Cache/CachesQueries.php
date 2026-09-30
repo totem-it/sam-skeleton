@@ -15,7 +15,7 @@ trait CachesQueries
     /**
      * Cache domain key.
      *
-     * @return non-empty-string
+     * @return string
      */
     public function cacheNamespace(): string
     {
