@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Totem\SamSkeleton\Tests\ValueObject;
 
 use Orchestra\Testbench\TestCase;
-use Totem\SamSkeleton\Bundles\ValueObject\ParseValueObject;
+use Totem\SamSkeleton\ValueObject\ParseValueObject;
 
 uses(TestCase::class);
 
 mutates(ParseValueObject::class);
 
-beforeEach(function () {
-    $this->dummy = $this->partialMock(FixtureParseValueObject::class)->shouldAllowMockingProtectedMethods();
+beforeEach(function (): void {
+    $this->dummy = new FixtureParseValueObject();
 });
 
 it('can get from trimOrNull method', function ($payload, $value): void {
-    expect($this->dummy->trimOrNull($payload))
+    expect($this->dummy->callTrimOrNull($payload))
         ->toBe($value);
 })->with([
     'trim string when string' => [' some value   ', 'some value'],
@@ -25,7 +25,7 @@ it('can get from trimOrNull method', function ($payload, $value): void {
 ]);
 
 it('can get from intOrNull method', function ($payload, $value): void {
-    expect($this->dummy->intOrNull($payload))
+    expect($this->dummy->callIntOrNull($payload))
         ->toBe($value);
 })->with([
     'int when string with number' => ['72', 72],

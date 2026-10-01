@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Totem\SamSkeleton\Bundles\ValueObject;
+namespace Totem\SamSkeleton\ValueObject;
 
 trait ParseValueObject
 {
