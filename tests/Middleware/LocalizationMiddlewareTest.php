@@ -6,7 +6,7 @@ namespace Totem\SamSkeleton\Tests\Middleware;
 
 use Illuminate\Http\Request;
 use Orchestra\Testbench\TestCase;
-use Totem\SamSkeleton\Bundles\Middleware\LocalizationMiddleware;
+use Totem\SamSkeleton\Middleware\LocalizationMiddleware;
 
 use function Totem\SamSkeleton\Tests\createLangRequest;
 
@@ -14,7 +14,7 @@ uses(TestCase::class);
 
 covers(LocalizationMiddleware::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->middleware = new LocalizationMiddleware();
     $this->translator = resolve('translator');
     $this->lines = [
@@ -77,7 +77,7 @@ describe('locale behavior', function (): void {
         'monkey string' => [' ; ,;'],
     ]);
 
-    it('does not set locale when header is missing', function () {
+    it('does not set locale when header is missing', function (): void {
         $request = createLangRequest();
         $request->headers->replace();
 
@@ -111,7 +111,7 @@ it('not changing return callback result', function ($payload): void {
     'monkey string' => [' ; ,;'],
 ]);
 
-it('not set accept-language header when request header is missing', function () {
+it('not set accept-language header when request header is missing', function (): void {
     $request = createLangRequest();
     $request->headers->replace();
 
@@ -156,7 +156,7 @@ describe('middleware', function (): void {
         'asterisk' => ['*'],
     ]);
 
-    it('is ignored if the accept-language header is missing', function () {
+    it('is ignored if the accept-language header is missing', function (): void {
         /** @var LocalizationMiddleware $mock */
         $mock = $this->partialMock(LocalizationMiddleware::class)
             ->shouldAllowMockingProtectedMethods()

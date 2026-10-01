@@ -6,7 +6,7 @@ namespace Totem\SamSkeleton\Tests\Middleware;
 
 use Illuminate\Http\Request;
 use Orchestra\Testbench\TestCase;
-use Totem\SamSkeleton\Bundles\Middleware\ForceJsonMiddleware;
+use Totem\SamSkeleton\Middleware\ForceJsonMiddleware;
 
 use function Totem\SamSkeleton\Tests\createAcceptRequest;
 
@@ -14,7 +14,7 @@ uses(TestCase::class);
 
 covers(ForceJsonMiddleware::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->middleware = new ForceJsonMiddleware();
 });
 

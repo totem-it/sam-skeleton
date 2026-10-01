@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Totem\SamSkeleton\Bundles\Middleware;
+namespace Totem\SamSkeleton\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
