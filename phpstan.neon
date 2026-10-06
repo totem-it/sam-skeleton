@@ -16,6 +16,6 @@ parameters:
             message: '#Trait .+ is used zero times and is not analysed.#'
             paths:
                 - '*/Bundles/Auth/AuthorizedRequest.php'
-                - '*/Bundles/ValueObject/ParseValueObject.php'
+                - '*/ValueObject/ParseValueObject.php'
                 - '*/Repository/UseRepository.php'
                 - '*/Cache/CachesQueries.php'
