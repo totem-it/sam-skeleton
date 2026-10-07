@@ -13,7 +13,7 @@ uses(TestCase::class);
 
 mutates(DataTableView::class);
 
-it('can create a base instance', function () {
+it('can create a base instance', function (): void {
     $data = DataTableView::make('custom_view');
 
     expect($data->toArray())
@@ -25,7 +25,7 @@ it('can create a base instance', function () {
         ]);
 });
 
-it('can add header', function () {
+it('can add header', function (): void {
     $data = DataTableView::make('custom_view');
 
     $data->addHeader(new Header('values', 'text'));
@@ -35,7 +35,7 @@ it('can add header', function () {
         ->toHaveKey('values');
 });
 
-it('can add multiple headers', function () {
+it('can add multiple headers', function (): void {
     $data = DataTableView::make('custom_view');
 
     $data->addHeaders([
@@ -48,7 +48,7 @@ it('can add multiple headers', function () {
         ->toHaveKeys(['first', 'second']);
 });
 
-it('can add filter', function () {
+it('can add filter', function (): void {
     $data = DataTableView::make('custom_view');
 
     $data->addFilter(new FilterColumn('title'));
@@ -58,7 +58,7 @@ it('can add filter', function () {
         ->toHaveKey('title');
 });
 
-it('can add multiple filters', function () {
+it('can add multiple filters', function (): void {
     $data = DataTableView::make('custom_view');
 
     $data->addFilters([

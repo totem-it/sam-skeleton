@@ -31,7 +31,7 @@ covers(ChunkedApiCollection::class);
 
 mutates(ChunksResponse::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->request = Request::create('/');
 
     config(['app.api' => '1.2']);

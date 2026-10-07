@@ -27,9 +27,7 @@ class DataTableView implements Arrayable
     {
         $key = is_int($value) || $value === null ? $filter->label : $value;
 
-        if (! isset($this->filters[$key])) {
-            $this->filters[$key] = $filter;
-        }
+        $this->filters[$key] ??= $filter;
 
         return $this;
     }
@@ -48,9 +46,7 @@ class DataTableView implements Arrayable
 
     public function addHeader(Header $header): self
     {
-        if (! isset($this->headers[$header->value])) {
-            $this->headers[$header->value] = $header;
-        }
+        $this->headers[$header->value] ??= $header;
 
         return $this;
     }

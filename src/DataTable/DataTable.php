@@ -24,9 +24,7 @@ class DataTable implements Arrayable
 
     public function addView(DataTableView $view): self
     {
-        if (! isset($this->views[$view->key])) {
-            $this->views[$view->key] = $view;
-        }
+        $this->views[$view->key] ??= $view;
 
         return $this;
     }

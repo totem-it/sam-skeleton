@@ -15,7 +15,7 @@ uses(TestCase::class);
 
 covers(ApiCollection::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->resource = [fake()->words()];
     $this->request = Request::create('/');
 });

@@ -14,13 +14,13 @@ uses(TestCase::class);
 
 mutates(AuthorizedRequest::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = new FixtureUser();
 
     Route::get('/', fn (FixtureRequest $request) => response()->json(['message' => $request->method()]));
 });
 
-describe('Authorization logic', function () {
+describe('Authorization logic', function (): void {
     it('grants access to authorized users', function (): void {
         $request = new FixtureRequest();
         $request->setContainer(app());

@@ -18,7 +18,7 @@ beforeEach(function (): void {
     $this->webhook = new Webhook();
 });
 
-it('logs debug when job not failed', function () {
+it('logs debug when job not failed', function (): void {
     Log::shouldReceive('log')
         ->once()
         ->with(
@@ -44,7 +44,7 @@ it('logs debug when job not failed', function () {
     $this->webhook->handle($event);
 });
 
-it('logs error when job failed', function () {
+it('logs error when job failed', function (): void {
     Log::shouldReceive('log')
         ->once()
         ->with(
@@ -70,7 +70,7 @@ it('logs error when job failed', function () {
     $this->webhook->handle($event);
 });
 
-it('logs with command array when command has toArray method', function () {
+it('logs with command array when command has toArray method', function (): void {
     $commandData = ['key' => 'value', 'test' => 'data'];
 
     Log::shouldReceive('log')
@@ -98,7 +98,7 @@ it('logs with command array when command has toArray method', function () {
     $this->webhook->handle($event);
 });
 
-it('works when command data is missing', function () {
+it('works when command data is missing', function (): void {
     Log::shouldReceive('log')
         ->once()
         ->with(
@@ -124,7 +124,7 @@ it('works when command data is missing', function () {
     $this->webhook->handle($event);
 });
 
-it('works when payload data is missing', function () {
+it('works when payload data is missing', function (): void {
     Log::shouldReceive('log')
         ->once()
         ->with(
@@ -148,7 +148,7 @@ it('works when payload data is missing', function () {
     $this->webhook->handle($event);
 });
 
-it('run method returns pending dispatch', function () {
+it('run method returns pending dispatch', function (): void {
     $result = Webhook::run(new FixtureJob());
 
     expect($result)

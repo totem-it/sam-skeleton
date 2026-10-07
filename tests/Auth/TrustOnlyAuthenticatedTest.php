@@ -14,7 +14,7 @@ uses(TestCase::class);
 
 covers(TrustOnlyAuthenticated::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->uuid = fake()->uuid();
 
     $this->user = new FixtureUser([
@@ -23,17 +23,16 @@ beforeEach(function () {
         'uuid' => $this->uuid,
     ]);
 
-    Route::middleware(TrustOnlyAuthenticated::class)->get('user/{uuid?}', function () {
-        return response()->json(['message' => 'Access granted']);
-    });
+    Route::middleware(TrustOnlyAuthenticated::class)
+        ->get('user/{uuid?}', fn () => response()->json(['message' => 'Access granted']));
 });
 
 describe('Middleware Logic', function (): void {
-    beforeEach(function () {
+    beforeEach(function (): void {
         $this->middleware = new TrustOnlyAuthenticated();
     });
 
-    it('allows access when user UUID matches the route UUID', function () {
+    it('allows access when user UUID matches the route UUID', function (): void {
         $request = Request::create('user/' . $this->uuid);
         $request->setUserResolver(fn () => $this->user);
         $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
@@ -43,7 +42,7 @@ describe('Middleware Logic', function (): void {
         expect($response)->toBe('next step');
     });
 
-    it('throw an exception when user UUID does not match route UUID', function () {
+    it('throw an exception when user UUID does not match route UUID', function (): void {
         $request = Request::create('user/' . fake()->uuid());
         $request->setUserResolver(fn () => $this->user);
         $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
@@ -52,7 +51,7 @@ describe('Middleware Logic', function (): void {
             ->toThrow(AccessDeniedHttpException::class, __('The user is not allowed to modify it.'));
     });
 
-    it('throws an exception if the user is not logged in', function () {
+    it('throws an exception if the user is not logged in', function (): void {
         $request = Request::create('user/' . fake()->uuid());
         $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
 
@@ -60,7 +59,7 @@ describe('Middleware Logic', function (): void {
             ->toThrow(AccessDeniedHttpException::class, __('The user is not allowed to modify it.'));
     });
 
-    it('throws an exception if the route UUID is not defined', function () {
+    it('throws an exception if the route UUID is not defined', function (): void {
         $request = Request::create('user');
         $request->setUserResolver(fn () => $this->user);
         $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
@@ -71,7 +70,7 @@ describe('Middleware Logic', function (): void {
 });
 
 describe('Access via HTTP requests', function (): void {
-    beforeEach(function () {
+    beforeEach(function (): void {
         $this->actingAs($this->user);
     });
 

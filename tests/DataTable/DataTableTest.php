@@ -16,7 +16,7 @@ uses(TestCase::class);
 
 mutates(DataTable::class);
 
-it('can create a base instance', function () {
+it('can create a base instance', function (): void {
     $data = DataTable::make();
 
     expect($data->toArray())
@@ -27,7 +27,7 @@ it('can create a base instance', function () {
         ]);
 });
 
-it('can set views', function () {
+it('can set views', function (): void {
     $views = [DataTableView::make('my_key')];
 
     $static = DataTable::make($views);
@@ -60,7 +60,7 @@ it('can set views', function () {
         ]);
 });
 
-it('can set views from ENUM', function () {
+it('can set views from ENUM', function (): void {
     $data = DataTable::make(FixtureEnum::class);
 
     expect($data)
@@ -79,7 +79,7 @@ it('can set views from ENUM', function () {
         );
 });
 
-it('can add extra view', function () {
+it('can add extra view', function (): void {
     $views = [DataTableView::make('first')];
 
     $data = DataTable::make($views);
@@ -100,7 +100,7 @@ it('can add extra view', function () {
         ]);
 });
 
-it('can set default view', function () {
+it('can set default view', function (): void {
     $views = [
         DataTableView::make('first'),
         DataTableView::make('second'),
@@ -128,7 +128,7 @@ it('can set default view', function () {
         ]);
 });
 
-it('can mutate view', function () {
+it('can mutate view', function (): void {
     $data = DataTable::make();
 
     $data->addView(DataTableView::make('my_view'));
@@ -171,7 +171,7 @@ it('can mutate view', function () {
         ]);
 });
 
-it('throws an exception when mutate not registered view', function () {
+it('throws an exception when mutate not registered view', function (): void {
     $data = DataTable::make();
 
     expect(fn () => $data->view('empty'))

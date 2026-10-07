@@ -18,13 +18,9 @@ class FixtureApiResource extends ApiResource
             'id' => $this->resource->id,
             'first' => $this->whenHasAttribute('is_published'),
             'second' => $this->whenHasAttribute('is_published', 'override value'),
-            'third' => $this->whenHasAttribute('is_published', function () {
-                return 'override value';
-            }),
+            'third' => $this->whenHasAttribute('is_published', fn () => 'override value'),
             'fourth' => $this->whenHasAttribute('is_published', $this->resource->is_published, 'default'),
-            'fifth' => $this->whenHasAttribute('is_published', $this->resource->is_published, function () {
-                return 'default';
-            }),
+            'fifth' => $this->whenHasAttribute('is_published', $this->resource->is_published, fn () => 'default'),
             'sixth' => $this->whenHasAttribute('is_published', $this->resource->is_published, fn () => 'default'),
             'seventh' => $this->whenHasAttribute('other_attribute'),
             'eighth' => $this->whenHasAttribute('other_attribute', null, 'default'),

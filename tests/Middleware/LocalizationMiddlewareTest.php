@@ -124,7 +124,7 @@ it('not set accept-language header when request header is missing', function ():
 });
 
 describe('middleware', function (): void {
-    it('is invoked with the correct accept-language header', function ($payload) {
+    it('is invoked with the correct accept-language header', function ($payload): void {
         /** @var LocalizationMiddleware $mock */
         $mock = $this->partialMock(LocalizationMiddleware::class)
             ->shouldAllowMockingProtectedMethods()
@@ -141,7 +141,7 @@ describe('middleware', function (): void {
         'mixed locale values' => ['de-DE, de;q=0.7, fr;q=0.9, en;q=0.8, *;q=0.5'],
     ]);
 
-    it('is ignored if the accept-language header is invalid', function ($payload) {
+    it('is ignored if the accept-language header is invalid', function ($payload): void {
         /** @var LocalizationMiddleware $mock */
         $mock = $this->partialMock(LocalizationMiddleware::class)
             ->shouldAllowMockingProtectedMethods()

@@ -29,7 +29,7 @@ it('returns the callback result', function (): void {
 });
 
 it('replaced wildcard Accept header to `application/json`', function (): void {
-    $this->middleware->handle(createAcceptRequest(), function (Request $request) {
+    $this->middleware->handle(createAcceptRequest(), function (Request $request): void {
         expect($request)
             ->headers->get('Accept')->toContain('application/json')
             ->getAcceptableContentTypes()->toContain('application/json');
@@ -37,7 +37,7 @@ it('replaced wildcard Accept header to `application/json`', function (): void {
 });
 
 it('leaves Accept header to original value', function ($payload): void {
-    $this->middleware->handle(createAcceptRequest($payload), function (Request $request) use ($payload) {
+    $this->middleware->handle(createAcceptRequest($payload), function (Request $request) use ($payload): void {
         expect($request)
             ->headers->get('Accept')->toContain($payload)
             ->getAcceptableContentTypes()->toContain($payload);

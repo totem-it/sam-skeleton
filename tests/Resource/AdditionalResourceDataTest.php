@@ -13,7 +13,7 @@ uses(TestCase::class);
 
 mutates(AdditionalResourceData::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->request = Request::create('/');
     $this->resource = new ApiResource([]);
 });
@@ -24,13 +24,13 @@ it('returns the api version', function (): void {
     expect($response)->toBe(['apiVersion' => config('app.api')]);
 });
 
-it('includes apiVersion in the response', function () {
+it('includes apiVersion in the response', function (): void {
     $response = $this->resource->toResponse($this->request);
 
     expect($response->getData()->apiVersion)->toBe(config('app.api'));
 });
 
-it('uses api version from config', function () {
+it('uses api version from config', function (): void {
     expect(config('app.api'))->toBe(config('app.api'));
 
     config(['app.api' => '1.2']);

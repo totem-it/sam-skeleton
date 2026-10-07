@@ -21,7 +21,7 @@ class TrustOnlyAuthenticated
 
     private function getRoute(Request $request): string
     {
-        return tap($request->route('uuid'), function ($uuid) {
+        return tap($request->route('uuid'), function ($uuid): void {
             if (! $uuid) {
                 throw $this->throwException();
             }
@@ -30,7 +30,7 @@ class TrustOnlyAuthenticated
 
     private function getUser(Request $request): mixed
     {
-        return tap($request->user(), function ($user) {
+        return tap($request->user(), function ($user): void {
             if (! $user) {
                 throw $this->throwException();
             }
