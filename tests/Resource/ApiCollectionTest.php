@@ -34,7 +34,7 @@ it('sets the collects property if provided', function (): void {
 });
 
 test('collect property returns null when collects is null', function (): void {
-    $collection = new ApiCollection($this->resource, null);
+    $collection = new ApiCollection($this->resource);
 
     expect($collection->collects)->toBeNull();
 });
