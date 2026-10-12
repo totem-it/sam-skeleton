@@ -40,7 +40,7 @@ class Filterable
         protected Builder $scopedBuilder,
         ?Request $request = null,
     ) {
-        $this->request = $request ? FilterableRequest::fromRequest($request) : self::makeRequest();
+        $this->request = $request !== null ? FilterableRequest::fromRequest($request) : self::makeRequest();
         $this->modelTable = $scopedBuilder->getModel()->getTable();
         $this->fields = $this->newFields();
         $this->sorts = $this->newSorts();
