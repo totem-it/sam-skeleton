@@ -32,7 +32,6 @@ class Filter
     }
 
     /**
-     * @param string|array ...$fields
      * @phpstan-param string|string[] ...$fields
      */
     public function allowedFilters(array|string ...$fields): static

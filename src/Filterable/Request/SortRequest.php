@@ -43,8 +43,6 @@ readonly class SortRequest
     }
 
     /**
-     * @param string $input
-     *
      * @return string[]
      */
     protected static function normalizeInput(string $input): array

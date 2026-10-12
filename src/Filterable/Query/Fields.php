@@ -32,7 +32,6 @@ class Fields
     }
 
     /**
-     * @param string|array ...$fields
      * @phpstan-param string|string[] ...$fields
      */
     public function allowedFields(array|string ...$fields): static

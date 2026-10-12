@@ -17,8 +17,6 @@ readonly class IncludeRequest
     }
 
     /**
-     * @param string $fieldSets
-     *
      * @return string[]
      */
     public static function parse(string $fieldSets): array

@@ -7,7 +7,6 @@ namespace Totem\SamSkeleton\Filterable\Concerns;
 trait UseSorts
 {
     /**
-     * @param string|array ...$fields
      * @phpstan-param string|string[] ...$fields
      */
     public function allowedSorts(array|string ...$fields): static
@@ -20,7 +19,6 @@ trait UseSorts
     }
 
     /**
-     * @param string|array ...$fields
      * @phpstan-param string|string[] ...$fields
      */
     public function defaultSort(array|string ...$fields): static

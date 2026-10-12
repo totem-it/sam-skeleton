@@ -143,7 +143,6 @@ class Filterable
     }
 
     /**
-     * @param array|string|AllowedRelation ...$relationships
      * @phpstan-param string|string[] ...$relationships
      */
     public function allowedIncludes(array|string|AllowedRelation ...$relationships): static

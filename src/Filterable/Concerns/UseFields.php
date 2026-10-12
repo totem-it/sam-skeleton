@@ -7,7 +7,6 @@ namespace Totem\SamSkeleton\Filterable\Concerns;
 trait UseFields
 {
     /**
-     * @param string|array ...$fields
      * @phpstan-param string|string[] ...$fields
      */
     public function allowedFields(array|string ...$fields): static

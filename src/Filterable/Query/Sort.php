@@ -32,7 +32,6 @@ class Sort
     }
 
     /**
-     * @param string|array ...$fields
      * @phpstan-param string|string[] ...$fields
      */
     public function allowedSorts(array|string ...$fields): static

@@ -33,7 +33,6 @@ class Includes
     }
 
     /**
-     * @param string|array|AllowedRelation ...$fields
      * @phpstan-param string|string[] ...$fields
      */
     public function allowedIncludes(array|string|AllowedRelation ...$fields): static
