@@ -67,8 +67,8 @@ class DataTableView implements Arrayable
     {
         return [
             'name' => $this->name,
-            'headers' => array_map(static fn (Header $value) => $value->toArray(), $this->headers),
-            'filters' => array_map(static fn (FilterColumn $value) => $value->toArray(), $this->filters),
+            'headers' => array_map(static fn (Header $value): array => $value->toArray(), $this->headers),
+            'filters' => array_map(static fn (FilterColumn $value): array => $value->toArray(), $this->filters),
         ];
     }
 

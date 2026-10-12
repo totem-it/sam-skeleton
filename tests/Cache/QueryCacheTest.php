@@ -236,7 +236,7 @@ describe('key building', function (): void {
     });
 
     it('rejects an entry that depends on no namespace', function (): void {
-        expect(fn () => $this->cache->key([], 'all'))
+        expect(fn (): string => $this->cache->key([], 'all'))
             ->toThrow(
                 exception: InvalidArgumentException::class,
                 exceptionMessage: 'at least one namespace'
@@ -244,7 +244,7 @@ describe('key building', function (): void {
     });
 
     it('rejects a namespace that cannot be part of a key', function (string $namespace): void {
-        expect(fn () => $this->cache->key($namespace, 'all'))
+        expect(fn (): string => $this->cache->key($namespace, 'all'))
             ->toThrow(
                 exception: InvalidArgumentException::class,
                 exceptionMessage: 'non-empty name of printable ASCII'
@@ -324,7 +324,7 @@ describe('key building', function (): void {
     ]);
 
     it('refuses an associative array', function (): void {
-        expect(fn () => $this->cache->key('alpha', 'search', [['a' => 1, 'b' => 2]]))
+        expect(fn (): string => $this->cache->key('alpha', 'search', [['a' => 1, 'b' => 2]]))
             ->toThrow(
                 exception: InvalidArgumentException::class,
                 exceptionMessage: 'must be lists'
@@ -332,7 +332,7 @@ describe('key building', function (): void {
     });
 
     it('refuses an argument that is not an int, string, bool, null or list', function (mixed $argument): void {
-        expect(fn () => $this->cache->key('alpha', 'search', [$argument]))
+        expect(fn (): string => $this->cache->key('alpha', 'search', [$argument]))
             ->toThrow(
                 exception: InvalidArgumentException::class,
                 exceptionMessage: 'must be ints, strings, bools, nulls or lists of them'
@@ -344,7 +344,7 @@ describe('key building', function (): void {
     ]);
 
     it('refuses a closure argument', function (): void {
-        expect(fn () => $this->cache->key('alpha', 'search', [static fn (): int => 1]))
+        expect(fn (): string => $this->cache->key('alpha', 'search', [static fn (): int => 1]))
             ->toThrow(
                 exception: InvalidArgumentException::class,
                 exceptionMessage: 'must be ints, strings, bools, nulls or lists of them'

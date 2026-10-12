@@ -56,30 +56,30 @@ describe('allowed sorts', function (): void {
     it('throw an exception for non string sort field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedSorts(['id', 'email', 3.3131]))
+        expect(fn (): Filterable => $result->allowedSorts(['id', 'email', 3.3131]))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Non-string field provided.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Non-string field provided.'
             );
     });
 
     it('throw an exception for incorrect prefixed sort field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedSorts('.id'))
+        expect(fn (): Filterable => $result->allowedSorts('.id'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot start or end with a dot.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot start or end with a dot.'
             );
     });
 
     it('throw an exception for incorrect typed resource sort field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedSorts('resource..id'))
+        expect(fn (): Filterable => $result->allowedSorts('resource..id'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot contain consecutive dots.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot contain consecutive dots.'
             );
     });
 });
@@ -128,10 +128,10 @@ describe('sort fields', function (): void {
         $result = Filterable::for(FixtureUser::class)
             ->withRequest(createQuerySortRequest('-random-column'));
 
-        expect(fn () => $result->allowedSorts('name'))
+        expect(fn (): Filterable => $result->allowedSorts('name'))
             ->toThrow(
-                InvalidSortQuery::class,
-                'Requested sorts [users.random-column] are not allowed. Allowed sorts are [users.name].'
+                exception: InvalidSortQuery::class,
+                exceptionMessage: 'Requested sorts [users.random-column] are not allowed. Allowed sorts are [users.name].'
             );
     });
 
@@ -198,10 +198,10 @@ describe('sort fields', function (): void {
             ->withRequest(createQuerySortRequest('email'))
             ->defaultSort('id');
 
-        expect(fn () => $query->allowedSorts('name'))
+        expect(fn (): Filterable => $query->allowedSorts('name'))
             ->toThrow(
-                InvalidSortQuery::class,
-                'Requested sorts [users.email] are not allowed. Allowed sorts are [users.name].'
+                exception: InvalidSortQuery::class,
+                exceptionMessage: 'Requested sorts [users.email] are not allowed. Allowed sorts are [users.name].'
             );
     });
 });

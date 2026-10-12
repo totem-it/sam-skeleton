@@ -6,6 +6,7 @@ namespace Totem\SamSkeleton\Tests\Auth;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Container\Container;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use Totem\SamSkeleton\Bundles\Auth\AuthorizedRequest;
 use Totem\SamSkeleton\Tests\TestCase;
@@ -17,7 +18,7 @@ mutates(AuthorizedRequest::class);
 beforeEach(function (): void {
     $this->user = new FixtureUser();
 
-    Route::get('/', fn (FixtureRequest $request) => response()->json(['message' => $request->method()]));
+    Route::get('/', fn (FixtureRequest $request): JsonResponse => response()->json(['message' => $request->method()]));
 });
 
 describe('Authorization logic', function (): void {
@@ -63,7 +64,10 @@ describe('Access via HTTP requests', function (): void {
     it('throw an exception for unauthorized users', function (): void {
         $response = $this->get('/');
 
-        expect(fn () => $response->json())
-            ->toThrow(AuthorizationException::class, __('This action is unauthorized.'));
+        expect(fn (): JsonResponse => $response->json())
+            ->toThrow(
+                exception: AuthorizationException::class,
+                exceptionMessage: __('This action is unauthorized.')
+            );
     });
 });

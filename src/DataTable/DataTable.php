@@ -45,7 +45,7 @@ class DataTable implements Arrayable
     {
         if (is_string($views) && is_subclass_of($views, BackedEnum::class) && enum_exists($views)) {
             return $this->setViews(
-                array_map(static fn (BackedEnum $view) => DataTableView::make((string) $view->value), $views::cases())
+                array_map(static fn (BackedEnum $view): DataTableView => DataTableView::make((string) $view->value), $views::cases())
             );
         }
 
@@ -64,7 +64,7 @@ class DataTable implements Arrayable
     {
         return [
             'defaultView' => $this->defaultView,
-            'views' => array_map(static fn (DataTableView $value) => $value->toArray(), $this->views),
+            'views' => array_map(static fn (DataTableView $value): array => $value->toArray(), $this->views),
         ];
     }
 

@@ -55,7 +55,7 @@ describe('allowed fields', function (): void {
     it('throw an exception for non string field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedFields(['id', 'email', 3.3121]))
+        expect(fn (): Filterable => $result->allowedFields(['id', 'email', 3.3121]))
             ->toThrow(
                 InvalidFieldValue::class,
                 'Non-string field provided.'
@@ -65,7 +65,7 @@ describe('allowed fields', function (): void {
     it('throw an exception for incorrect prefixed field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedFields('.id'))
+        expect(fn (): Filterable => $result->allowedFields('.id'))
             ->toThrow(
                 InvalidFieldValue::class,
                 'Field cannot start or end with a dot.'
@@ -75,7 +75,7 @@ describe('allowed fields', function (): void {
     it('throw an exception for incorrect typed resource field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedFields('resource..id'))
+        expect(fn (): Filterable => $result->allowedFields('resource..id'))
             ->toThrow(
                 InvalidFieldValue::class,
                 'Field cannot contain consecutive dots.'
@@ -184,7 +184,7 @@ describe('fetch fields', function (): void {
         $result = Filterable::for(FixtureUser::class)
             ->withRequest(createQueryFieldRequest('random-column'));
 
-        expect(fn () => $result->allowedFields('name'))
+        expect(fn (): Filterable => $result->allowedFields('name'))
             ->toThrow(
                 InvalidFieldQuery::class,
                 'Requested fields [users.random-column] are not allowed. Allowed fields are [users.name].'
@@ -223,7 +223,7 @@ describe('fetch fields', function (): void {
         $result = Filterable::for(FixtureUser::class)
             ->withRequest(createQueryFieldRequest(['relatedModel' => 'random-column']));
 
-        expect(fn () => $result->allowedFields('relatedModel.name'))
+        expect(fn (): Filterable => $result->allowedFields('relatedModel.name'))
             ->toThrow(
                 InvalidFieldQuery::class,
                 'Requested fields [relatedModel.random-column] are not allowed. Allowed fields are [relatedModel.name].'
@@ -234,7 +234,7 @@ describe('fetch fields', function (): void {
         $result = Filterable::for(FixtureUser::class)
             ->withRequest(createQueryFieldRequest('relatedModel.random-column'));
 
-        expect(fn () => $result->allowedFields('relatedModel.name'))
+        expect(fn (): Filterable => $result->allowedFields('relatedModel.name'))
             ->toThrow(
                 InvalidFieldQuery::class,
                 'Requested fields [relatedModel.random-column] are not allowed. Allowed fields are [relatedModel.name].'

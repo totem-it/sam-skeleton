@@ -51,30 +51,30 @@ describe('allowed includes', function (): void {
     it('throw an exception for non string relation', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedIncludes(['relatedModel', 3.3121]))
+        expect(fn (): Filterable => $result->allowedIncludes(['relatedModel', 3.3121]))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Non-string field provided.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Non-string field provided.'
             );
     });
 
     it('throw an exception for incorrect prefixed relation', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedIncludes('.relatedModel'))
+        expect(fn (): Filterable => $result->allowedIncludes('.relatedModel'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot start or end with a dot.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot start or end with a dot.'
             );
     });
 
     it('throw an exception for incorrect typed sub relation', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedIncludes('relatedModel..nestedrelatedModel'))
+        expect(fn (): Filterable => $result->allowedIncludes('relatedModel..nestedrelatedModel'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot contain consecutive dots.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot contain consecutive dots.'
             );
     });
 });
@@ -190,10 +190,10 @@ describe('include relations', function (): void {
         $query = Filterable::for(FixtureUser::class)
             ->withRequest(createQueryIncludeRequest('random-relation'));
 
-        expect(fn () => $query->allowedIncludes('relatedModel'))
+        expect(fn (): Filterable => $query->allowedIncludes('relatedModel'))
             ->toThrow(
-                InvalidIncludeQuery::class,
-                'Requested includes [random-relation] are not allowed. Allowed includes are [relatedModel].'
+                exception: InvalidIncludeQuery::class,
+                exceptionMessage: 'Requested includes [random-relation] are not allowed. Allowed includes are [relatedModel].'
             );
     });
 });

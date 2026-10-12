@@ -57,30 +57,30 @@ describe('allowed filter', function (): void {
     it('throw an exception for non string filter field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedFilters(['id', 'email', 3.3123]))
+        expect(fn (): Filterable => $result->allowedFilters(['id', 'email', 3.3123]))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Non-string field provided.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Non-string field provided.'
             );
     });
 
     it('throw an exception for incorrect prefixed filter field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedFilters('.id'))
+        expect(fn (): Filterable => $result->allowedFilters('.id'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot start or end with a dot.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot start or end with a dot.'
             );
     });
 
     it('throw an exception for incorrect typed resource filter field', function (): void {
         $result = Filterable::for(FixtureUser::class);
 
-        expect(fn () => $result->allowedFilters('resource..id'))
+        expect(fn (): Filterable => $result->allowedFilters('resource..id'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot contain consecutive dots.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot contain consecutive dots.'
             );
     });
 });
@@ -644,7 +644,7 @@ describe('filter fields', function (): void {
         $result = Filterable::for(FixtureUser::class)
             ->withRequest(createQueryFilterRequest(['name' => ['random' => 'John']]));
 
-        expect(fn () => $result->allowedFilters('name'))
+        expect(fn (): Filterable => $result->allowedFilters('name'))
             ->toThrow(InvalidFilterOperator::class);
     });
 
@@ -652,10 +652,10 @@ describe('filter fields', function (): void {
         $result = Filterable::for(FixtureUser::class)
             ->withRequest(createQueryFilterRequest(['random-column' => 'test']));
 
-        expect(fn () => $result->allowedFilters('name'))
+        expect(fn (): Filterable => $result->allowedFilters('name'))
             ->toThrow(
-                InvalidFilterQuery::class,
-                'Requested filters [users.random-column] are not allowed. Allowed filters are [users.name].'
+                exception: InvalidFilterQuery::class,
+                exceptionMessage: 'Requested filters [users.random-column] are not allowed. Allowed filters are [users.name].'
             );
     });
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Totem\SamSkeleton\Tests\DataTable;
 
 use Orchestra\Testbench\TestCase;
-use Pest\Expectation;
 use Totem\SamSkeleton\DataTable\DataTable;
 use Totem\SamSkeleton\DataTable\DataTableView;
 use Totem\SamSkeleton\DataTable\FilterColumn;
@@ -72,7 +71,7 @@ it('can set views from ENUM', function (): void {
             'S',
         ])
         ->each(
-            fn (DataTableView|Expectation $view) => $view
+            fn ($view) => $view
                 ->toBeInstanceOf(DataTableView::class)
                 ->headers->toBe([])
                 ->filters->toBe([])
@@ -174,7 +173,7 @@ it('can mutate view', function (): void {
 it('throws an exception when mutate not registered view', function (): void {
     $data = DataTable::make();
 
-    expect(fn () => $data->view('empty'))
+    expect(fn (): DataTableView => $data->view('empty'))
         ->toThrow(
             exception: UnexpectedValueException::class,
             exceptionMessage: 'View key [empty] is not registered.'

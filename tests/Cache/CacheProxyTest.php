@@ -142,7 +142,7 @@ it('separates two classes sharing a basename, a domain and a method name', funct
 });
 
 it('refuses a method that is not marked as a cached query', function (): void {
-    expect(fn () => $this->repository->cached()->write(['a' => 1]))
+    expect(fn (): int => $this->repository->cached()->write(['a' => 1]))
         ->toThrow(
             exception: LogicException::class,
             exceptionMessage: 'is not marked with #[CachedQuery]',
@@ -182,7 +182,7 @@ it('recomputes after the repository invalidates its domain', function (): void {
 
 describe('missing namespace', function (): void {
     it('refuses to read a repository that declares no cache namespace', function (): void {
-        expect(fn () => (new FixtureNamelessRepository())->cached()->all())
+        expect(fn (): string => (new FixtureNamelessRepository())->cached()->all())
             ->toThrow(
                 exception: LogicException::class,
                 exceptionMessage: 'must declare a non-empty public [cacheNamespace()] method',

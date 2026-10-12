@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\Auth;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route as RouteFacade;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Totem\SamSkeleton\Bundles\Auth\TrustOnlyAuthenticated;
 use Totem\SamSkeleton\Tests\TestCase;
@@ -23,8 +25,8 @@ beforeEach(function (): void {
         'uuid' => $this->uuid,
     ]);
 
-    Route::middleware(TrustOnlyAuthenticated::class)
-        ->get('user/{uuid?}', fn () => response()->json(['message' => 'Access granted']));
+    RouteFacade::middleware(TrustOnlyAuthenticated::class)
+        ->get('user/{uuid?}', fn (): JsonResponse => response()->json(['message' => 'Access granted']));
 });
 
 describe('Middleware Logic', function (): void {
@@ -34,38 +36,48 @@ describe('Middleware Logic', function (): void {
 
     it('allows access when user UUID matches the route UUID', function (): void {
         $request = Request::create('user/' . $this->uuid);
-        $request->setUserResolver(fn () => $this->user);
-        $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
+        $request->setUserResolver(fn (): FixtureUser => $this->user);
+        $request->setRouteResolver(fn (): Route => RouteFacade::getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($request) => 'next step');
+        $response = $this->middleware->handle($request, fn ($request): string => 'next step');
 
-        expect($response)->toBe('next step');
+        expect($response)
+            ->toBe('next step');
     });
 
     it('throw an exception when user UUID does not match route UUID', function (): void {
         $request = Request::create('user/' . fake()->uuid());
-        $request->setUserResolver(fn () => $this->user);
-        $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
+        $request->setUserResolver(fn (): FixtureUser => $this->user);
+        $request->setRouteResolver(fn (): Route => RouteFacade::getRoutes()->match($request));
 
-        expect(fn () => $this->middleware->handle($request, fn () => null))
-            ->toThrow(AccessDeniedHttpException::class, __('The user is not allowed to modify it.'));
+        expect(fn (): mixed => $this->middleware->handle($request, fn (): null => null))
+            ->toThrow(
+                exception: AccessDeniedHttpException::class,
+                exceptionMessage: __('The user is not allowed to modify it.')
+            );
     });
 
     it('throws an exception if the user is not logged in', function (): void {
         $request = Request::create('user/' . fake()->uuid());
-        $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
+        $request->setRouteResolver(fn (): Route => RouteFacade::getRoutes()->match($request));
 
-        expect(fn () => $this->middleware->handle($request, fn () => null))
-            ->toThrow(AccessDeniedHttpException::class, __('The user is not allowed to modify it.'));
+        expect(fn (): mixed => $this->middleware->handle($request, fn (): null => null))
+            ->toThrow(
+                exception: AccessDeniedHttpException::class,
+                exceptionMessage: __('The user is not allowed to modify it.')
+            );
     });
 
     it('throws an exception if the route UUID is not defined', function (): void {
         $request = Request::create('user');
-        $request->setUserResolver(fn () => $this->user);
-        $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
+        $request->setUserResolver(fn (): FixtureUser => $this->user);
+        $request->setRouteResolver(fn (): Route => RouteFacade::getRoutes()->match($request));
 
-        expect(fn () => $this->middleware->handle($request, fn () => null))
-            ->toThrow(AccessDeniedHttpException::class, __('The user is not allowed to modify it.'));
+        expect(fn (): mixed => $this->middleware->handle($request, fn (): null => null))
+            ->toThrow(
+                exception: AccessDeniedHttpException::class,
+                exceptionMessage: __('The user is not allowed to modify it.')
+            );
     });
 });
 

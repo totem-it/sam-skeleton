@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\Resource;
 
+use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -162,9 +163,9 @@ describe('fallback to the standard response', function (): void {
 it('fails the same way as ApiCollection on malformed utf-8', function (): void {
     $resource = array_fill(0, 100, ['a' => "\xB1\x31"]);
 
-    $failure = fn (string $class) => rescue(
-        fn () => (new $class($resource, ApiResource::class))->toResponse($this->request),
-        fn (Throwable $e) => [$e::class, $e->getMessage()],
+    $failure = fn (string $class): Closure|array => rescue(
+        callback: fn (): JsonResponse => (new $class($resource, ApiResource::class))->toResponse($this->request),
+        rescue: fn (Throwable $e): array => [$e::class, $e->getMessage()],
         report: false,
     );
 
@@ -174,7 +175,7 @@ it('fails the same way as ApiCollection on malformed utf-8', function (): void {
 });
 
 describe('json options declared on the collection', function (): void {
-    afterEach(fn () => FixtureOptionsCollection::$options = 0);
+    afterEach(fn (): int => FixtureOptionsCollection::$options = 0);
 
     it('falls back when the collection asks for pretty printing', function (): void {
         FixtureOptionsCollection::$options = JSON_PRETTY_PRINT;

@@ -25,7 +25,7 @@ class Header implements Arrayable
 
     public function toArray(): array
     {
-        return array_filter((array) $this, static fn ($v) => $v !== null);
+        return array_filter((array) $this, static fn ($v): bool => $v !== null);
     }
 
     public function disableSort(): self

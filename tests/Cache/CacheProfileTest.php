@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Totem\SamSkeleton\Tests\Cache;
 
-use Pest\Expectation;
 use Totem\SamSkeleton\Cache\CacheProfile;
 
 mutates(CacheProfile::class);
@@ -24,10 +23,10 @@ it('keeps fresh lower than ttl for every profile', function (): void {
         expect($ttl)
             ->toHaveCount(2)
             ->sequence(
-                fn (Expectation $item) => $item
+                fn ($item) => $item
                     ->toBeGreaterThan(0)
                     ->toBeLessThan($ttl[1]),
-                fn (Expectation $item) => $item
+                fn ($item) => $item
                     ->toBeGreaterThan($ttl[0]),
             );
     }

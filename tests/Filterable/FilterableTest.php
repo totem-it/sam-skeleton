@@ -52,7 +52,7 @@ describe('create instance', function (): void {
     });
 
     it('throws an exception when incorrect model string passed', function (): void {
-        expect(fn () => Filterable::for('no-model-class'))
+        expect(fn (): Filterable => Filterable::for('no-model-class'))
             ->toThrow(
                 InvalidFilterableArgument::class,
                 'Expected Eloquent model class-string or Builder.'

@@ -39,7 +39,7 @@ it('can get locale', function (): void {
 
 describe('locale behavior', function (): void {
     it('can parse header', function ($payload, $value): void {
-        $this->middleware->handle(createLangRequest($payload), fn () => null);
+        $this->middleware->handle(createLangRequest($payload), fn (): null => null);
 
         expect([
             $this->translator->getLocale(),
@@ -59,7 +59,7 @@ describe('locale behavior', function (): void {
     ]);
 
     it('does not set locale', function ($payload): void {
-        $this->middleware->handle(createLangRequest($payload), fn () => null);
+        $this->middleware->handle(createLangRequest($payload), fn (): null => null);
 
         expect([
             $this->translator->getLocale(),
@@ -81,7 +81,7 @@ describe('locale behavior', function (): void {
         $request = createLangRequest();
         $request->headers->replace();
 
-        $this->middleware->handle($request, fn () => null);
+        $this->middleware->handle($request, fn (): null => null);
 
         expect([
             $this->translator->getLocale(),
@@ -97,7 +97,7 @@ describe('locale behavior', function (): void {
 
 it('not changing return callback result', function ($payload): void {
     /** @var Request $middleware */
-    $middleware = $this->middleware->handle(createLangRequest($payload), fn (Request $request) => $request);
+    $middleware = $this->middleware->handle(createLangRequest($payload), fn (Request $request): Request => $request);
 
     expect($middleware)
         ->toBeInstanceOf(Request::class)
@@ -116,7 +116,7 @@ it('not set accept-language header when request header is missing', function ():
     $request->headers->replace();
 
     /** @var Request $middleware */
-    $middleware = $this->middleware->handle($request, fn (Request $request) => $request);
+    $middleware = $this->middleware->handle($request, fn (Request $request): Request => $request);
 
     expect($middleware)
         ->toBeInstanceOf(Request::class)
@@ -133,7 +133,7 @@ describe('middleware', function (): void {
             ->andReturn('')
             ->getMock();
 
-        $mock->handle(createLangRequest($payload), fn () => null);
+        $mock->handle(createLangRequest($payload), fn (): null => null);
     })->with([
         'country code' => ['pl'],
         'whitespace in middle & end' => ['j             a               '],
@@ -148,7 +148,7 @@ describe('middleware', function (): void {
             ->shouldNotReceive('parseHeader')
             ->getMock();
 
-        $mock->handle(createLangRequest($payload), fn () => null);
+        $mock->handle(createLangRequest($payload), fn (): null => null);
     })->with([
         'empty string' => [''],
         'empty space' => ['                            '],
@@ -166,6 +166,6 @@ describe('middleware', function (): void {
         $request = createLangRequest();
         $request->headers->replace();
 
-        $mock->handle($request, fn () => null);
+        $mock->handle($request, fn (): null => null);
     });
 });

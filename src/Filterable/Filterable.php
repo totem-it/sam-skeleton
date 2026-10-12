@@ -123,13 +123,13 @@ class Filterable
 
         if ($selectColumns !== []) {
             $this->scopedBuilder->beforeQuery(
-                static fn (QueryBuilder $builder) => $builder->select($selectColumns)
+                static fn (QueryBuilder $builder): QueryBuilder => $builder->select($selectColumns)
             );
         }
 
         foreach ($orderByClauses as $column => $direction) {
             $this->scopedBuilder->beforeQuery(
-                static fn (QueryBuilder $builder) => $builder->orderBy($column, $direction)
+                static fn (QueryBuilder $builder): QueryBuilder => $builder->orderBy($column, $direction)
             );
         }
 

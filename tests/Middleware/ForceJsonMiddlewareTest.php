@@ -20,7 +20,7 @@ beforeEach(function (): void {
 
 it('returns the callback result', function (): void {
     /** @var Request $middleware */
-    $middleware = $this->middleware->handle(createAcceptRequest(), fn (Request $request) => $request);
+    $middleware = $this->middleware->handle(createAcceptRequest(), fn (Request $request): Request => $request);
 
     expect($middleware)
         ->toBeInstanceOf(Request::class)
