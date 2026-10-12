@@ -42,7 +42,7 @@ class FilterColumn implements Arrayable
     {
         if (is_string($items) && is_subclass_of($items, BackedEnum::class) && enum_exists($items)) {
             return array_map(
-                static fn ($enum): array => ['title' => $enum->name, 'value' => $enum->value],
+                static fn (BackedEnum $enum): array => ['title' => $enum->name, 'value' => $enum->value],
                 $items::cases()
             );
         }
@@ -53,7 +53,7 @@ class FilterColumn implements Arrayable
 
         if ($this->isArray($items)) {
             return array_map(
-                static fn ($key, $value): array => ['title' => $key, 'value' => is_int($value) ? $key : $value],
+                static fn (int|string $key, int|string $value): array => ['title' => $key, 'value' => is_int($value) ? $key : $value],
                 $items,
                 array_keys($items)
             );

@@ -57,8 +57,8 @@ describe('allowed fields', function (): void {
 
         expect(fn (): Filterable => $result->allowedFields(['id', 'email', 3.3121]))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Non-string field provided.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Non-string field provided.'
             );
     });
 
@@ -67,8 +67,8 @@ describe('allowed fields', function (): void {
 
         expect(fn (): Filterable => $result->allowedFields('.id'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot start or end with a dot.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot start or end with a dot.'
             );
     });
 
@@ -77,8 +77,8 @@ describe('allowed fields', function (): void {
 
         expect(fn (): Filterable => $result->allowedFields('resource..id'))
             ->toThrow(
-                InvalidFieldValue::class,
-                'Field cannot contain consecutive dots.'
+                exception: InvalidFieldValue::class,
+                exceptionMessage: 'Field cannot contain consecutive dots.'
             );
     });
 });
@@ -186,8 +186,8 @@ describe('fetch fields', function (): void {
 
         expect(fn (): Filterable => $result->allowedFields('name'))
             ->toThrow(
-                InvalidFieldQuery::class,
-                'Requested fields [users.random-column] are not allowed. Allowed fields are [users.name].'
+                exception: InvalidFieldQuery::class,
+                exceptionMessage: 'Requested fields [users.random-column] are not allowed. Allowed fields are [users.name].'
             );
     });
 
@@ -225,8 +225,8 @@ describe('fetch fields', function (): void {
 
         expect(fn (): Filterable => $result->allowedFields('relatedModel.name'))
             ->toThrow(
-                InvalidFieldQuery::class,
-                'Requested fields [relatedModel.random-column] are not allowed. Allowed fields are [relatedModel.name].'
+                exception: InvalidFieldQuery::class,
+                exceptionMessage: 'Requested fields [relatedModel.random-column] are not allowed. Allowed fields are [relatedModel.name].'
             );
     });
 
@@ -236,8 +236,8 @@ describe('fetch fields', function (): void {
 
         expect(fn (): Filterable => $result->allowedFields('relatedModel.name'))
             ->toThrow(
-                InvalidFieldQuery::class,
-                'Requested fields [relatedModel.random-column] are not allowed. Allowed fields are [relatedModel.name].'
+                exception: InvalidFieldQuery::class,
+                exceptionMessage: 'Requested fields [relatedModel.random-column] are not allowed. Allowed fields are [relatedModel.name].'
             );
     });
 });
